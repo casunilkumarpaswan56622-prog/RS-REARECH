@@ -137,8 +137,8 @@ if active_module == "👤 Executive Portfolio":
         
     with col2:
         st.markdown("### 📄 Official Credentials")
-        st.info("Download my verified CV detailing my financial timeline and engineering milestones.")
-        create_download_button("Download Official Resume", "Sunil_KRPaswan_Resume  FINAL.pdf", "application/pdf")
+        st.info("Verified CV detailing financial timeline and engineering milestones available upon request.")
+        st.link_button("✉️ Request Official Resume", "mailto:sunilbla.acc@gmail.com", use_container_width=True)
         
         st.markdown("### 🔬 Core Philosophy")
         st.markdown("""
@@ -195,12 +195,8 @@ elif active_module == "🎯 Equities & Index (Sniper Engine)":
         </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("### 📄 Read The Research")
-        col_dl1, col_dl2 = st.columns(2)
-        with col_dl1:
-            create_download_button("Download Comprehensive Report", "CA_Sunil_Kumar_Comprehensive_Report.pdf", "application/pdf")
-        with col_dl2:
-            create_download_button("Download Redacted Architecture", "Sniper_V5_System_Architecture_CA_Sunil_Paswan_Redacted.pdf", "application/pdf")
+        st.markdown("### 🔒 Proprietary Architecture")
+        st.warning("The underlying Python source code and comprehensive PDF architectural reports are highly classified. Exhibition of system logic is restricted to these high-level metrics to protect the quantitative edge.")
 
     with tab2:
         st.markdown("### 📈 Target Universe Optimization (1-Year Audit)")
@@ -223,9 +219,8 @@ elif active_module == "🎯 Equities & Index (Sniper Engine)":
         fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", font=dict(color="white"))
         st.plotly_chart(fig, use_container_width=True)
         
-        st.markdown("### 💻 Source Notebooks")
-        st.write("Access the raw Pandas and DhanHQ API testing environments.")
-        create_download_button("Download Final Stock Option Analysis", "FINAL STOCK OPTION .ipynb")
+        st.markdown("### 🔒 Data Source & Engine")
+        st.info("Raw Pandas testing environments and DhanHQ API logic sequences are secured and not available for public download.")
 
     with tab3:
         st.markdown("### 📉 Advanced Indian Index Signal Generator")
@@ -241,21 +236,15 @@ elif active_module == "🎯 Equities & Index (Sniper Engine)":
                 <li><b>VWAP Sigma Bands:</b> Checks distance from Volume Weighted Average Price; penalizes extreme deviations.</li>
                 <li><b>Cumulative Delta & Order Flow:</b> Tracks underlying buying/selling pressure imbalances.</li>
                 <li><b>Options Data (PCR & IV Skew):</b> Factors in Put-Call Ratio and Implied Volatility skew based on VIX proxy.</li>
-            </ul>
-            <hr style="border-color: #334155;">
-            <h4 style="color:#10B981;">🛡️ Delta & Target Execution</h4>
-            <p>Once a signal is passed, the engine queries the live option chain to select strikes with a precise <b>Delta between 0.30 and 0.55</b>. Targets (T1/T2) and Trailing Stops are then calculated dynamically based on current ATR and session volatility multipliers.</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("### 💻 Index Source Notebooks")
-        col_i1, col_i2, col_i3 = st.columns(3)
-        with col_i1:
-            create_download_button("Option Buying Scanner", "OPTION BUYING NEW SCANNER .ipynb")
-        with col_i2:
-            create_download_button("Final Index Option Core", "FINAL INDEX OPTION .ipynb")
-        with col_i3:
-            create_download_button("Index Option (v1)", "FINAL INDEX OPTION  (1).ipynb")
+        </ul>
+        <hr style="border-color: #334155;">
+        <h4 style="color:#10B981;">🛡️ Delta & Target Execution</h4>
+        <p>Once a signal is passed, the engine queries the live option chain to select strikes with a precise <b>Delta between 0.30 and 0.55</b>. Targets (T1/T2) and Trailing Stops are then calculated dynamically based on current ATR and session volatility multipliers.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### 🔒 Index Strategy Source")
+    st.info("The Index Option Core and Scanner Python notebooks are locked. Deep structural code remains proprietary.")
 
 # ==========================================
 # PANEL 3: STAT-ARB & MACROS (TITAN)
@@ -319,11 +308,5 @@ elif active_module == "🏛️ Stat-Arb & Global Macros (Titan)":
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("### 💻 Source Notebooks")
-    col_t1, col_t2, col_t3 = st.columns(3)
-    with col_t1:
-        create_download_button("Z-Score Pairs Engine", "Z SCORE SOL LINK .ipynb")
-    with col_t2:
-        create_download_button("XRP Institutional Engine", "XRP ADVXUSD.ipynb")
-    with col_t3:
-        create_download_button("Gold MT5 Architecture", "GOLD XAUSD.ipynb")
+    st.markdown("### 🔒 Global Macro Systems & Source Code")
+    st.warning("The source files (Z-Score Pairs Engine, XRP Institutional Engine, and Gold MT5 Architecture) contain highly sensitive quantitative algorithms. Access is strictly disabled for public viewing.")
