@@ -232,7 +232,6 @@ elif selected_module == "📈 Indian Indices: Precision Sniper":
         st.info("The engine dynamically selects the optimal Options Strike based on the live VIX proxy, targeting a specific Delta and requiring minimum liquidity spikes.")
 
     with col_chart:
-        # Reconstructing the Top 10 Option Buying Stocks from user's logs
         edge_data = pd.DataFrame({
             "Stock": ["ADANIENSOL", "VEDL", "ADANIENT", "LODHA", "CGPOWER", "JINDALSTEL"],
             "Win Rate (%)": [93.84, 91.65, 92.87, 93.55, 90.97, 93.76],
@@ -303,7 +302,6 @@ elif selected_module == "🌍 XAUUSD: The Apex Compounder":
         """, unsafe_allow_html=True)
         
     with col_chart2:
-        # Reconstructing the 1-Year Apex Compounder log data
         months = ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
         balance = [27365, 28552, 25862, 34049, 74703, 78322, 65795, 82598, 99188, 108510, 111230, 118233]
         
