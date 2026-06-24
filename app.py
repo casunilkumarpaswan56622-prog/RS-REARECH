@@ -3,12 +3,11 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
-import os
 
 # --- PAGE ARCHITECTURE ---
 st.set_page_config(
     page_title="CA Sunil Kumar Paswan | Quant Hub",
-    page_icon="⚡",
+    page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -49,7 +48,7 @@ st.markdown("""
     
     .terminal-box {
         background-color: #0F172A;
-        border-left: 4px solid #3B82F6;
+        border-left: 4px solid #F59E0B;
         padding: 15px;
         border-radius: 4px;
         font-family: 'Courier New', Courier, monospace;
@@ -60,38 +59,36 @@ st.markdown("""
     
     .highlight-green { color: #10B981; font-weight: bold; }
     .highlight-blue { color: #3B82F6; font-weight: bold; }
-    .highlight-orange { color: #F59E0B; font-weight: bold; }
-    .metric-box { border-left: 3px solid #10B981; padding-left: 10px; }
 </style>
 """, unsafe_allow_html=True)
 
 # --- SIDEBAR EXECUTIVE PROFILE ---
-st.sidebar.markdown("### 🏛️ System Architecture")
+st.sidebar.markdown("### 🏛️ Architecture Console")
 st.sidebar.markdown("**CA Sunil Kr Paswan**\n*Quantitative Systems Architect*")
-st.sidebar.markdown("<span style='font-size: 13px; color: #9CA3AF;'>Jamadoba, Jharkhand, India<br>sunilbla.acc@gmail.com</span>", unsafe_allow_html=True)
+st.sidebar.write("📍 *Jamadoba, Jharkhand, India*")
+st.sidebar.write("✉️ *sunilbla.acc@gmail.com*")
 st.sidebar.divider()
 
-# Navigation
-st.sidebar.markdown("### 🛠️ Research Modules")
+st.sidebar.markdown("### 🔬 Research Exhibits")
 active_module = st.sidebar.radio(
-    "",
+    "Select System Report:",
     [
         "👤 Executive Portfolio", 
-        "🎯 Equities & Index (Sniper Engine)", 
-        "🏛️ Stat-Arb & Global Macros (Titan)"
-    ],
-    label_visibility="collapsed"
+        "📈 NIFTY 50 Temporal Alpha", 
+        "⚡ High-Beta Volatility Arbitrage",
+        "🎯 5-Asset Alpha Suite"
+    ]
 )
 
 st.sidebar.divider()
-st.sidebar.success("🟢 **Live Status:** Backtest Engines Active")
+st.sidebar.warning("🔒 **IP Protection:** Algorithmic logic and execution thresholds are strictly classified.")
 
 # ==========================================
 # PANEL 1: EXECUTIVE PORTFOLIO
 # ==========================================
 if active_module == "👤 Executive Portfolio":
     st.markdown('<p class="gradient-text">Institutional Profile</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-text">Bridging Chartered Accountancy frameworks with high-frequency algorithmic execution.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">Bridging Chartered Accountancy frameworks with algorithmic execution systems.</p>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
     
@@ -108,15 +105,15 @@ if active_module == "👤 Executive Portfolio":
             <h3 style='margin-top:0; color: #F8FAFC;'>⚙️ Quantitative Engineering</h3>
             <ul style='color: #CBD5E1;'>
                 <li><strong>Training:</strong> Python & Algorithmic Architecture from ISM Dhanbad.</li>
-                <li><strong>Tech Stack:</strong> Pandas, Numpy, Plotly, Dhan V2.0 API, Bybit WebSockets, MT5 Integration.</li>
-                <li><strong>Systemic Edge:</strong> Engineering absolute mechanical rulesets (Time-lockouts, Delta-Proxy valuation, autonomous trailing stops) to completely eliminate psychological trading friction and discretionary errors.</li>
+                <li><strong>Systemic Edge:</strong> Designing mechanical trailing stop-loss (TSL) handlers and delta-proxy modeling to completely eliminate psychological trading friction and discretionary errors.</li>
+                <li><strong>Data Science:</strong> Specializing in Monte Carlo simulations, temporal inefficiency tracking, and volume-weighted momentum algorithms.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
         
     with col2:
         st.markdown("### 📄 Official Credentials")
-        st.info("Verified CV detailing financial timeline and engineering milestones available upon request.")
+        st.info("Verified CV detailing financial timeline and engineering milestones available upon request to institutional partners.")
         st.link_button("✉️ Request Official Resume", "mailto:sunilbla.acc@gmail.com", use_container_width=True)
         
         st.markdown("### 🔬 Core Philosophy")
@@ -124,166 +121,129 @@ if active_module == "👤 Executive Portfolio":
         <div class="terminal-box">
             > "Abdicate the role of the Trader.<br>
             > Assume the role of the Systems Architect."<br><br>
-            <i>Extract from Proprietary Strategy Documentation.</i>
+            <i>Extract from Proprietary Risk Management Protocol.</i>
         </div>
         """, unsafe_allow_html=True)
 
 # ==========================================
-# PANEL 2: SNIPER ENGINE (EQUITIES & INDEX)
+# PANEL 2: NIFTY 50 TEMPORAL ALPHA
 # ==========================================
-elif active_module == "🎯 Equities & Index (Sniper Engine)":
-    st.markdown('<p class="gradient-text">Qualified Sniper: Breakout Velocity</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-text">Mechanical Breakout Architecture utilizing Delta-Proxy Option execution and strict temporal constraints.</p>', unsafe_allow_html=True)
+elif active_module == "📈 NIFTY 50 Temporal Alpha":
+    st.markdown('<p class="gradient-text">NIFTY 50 Intraday Momentum Engine</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">Deep data-science extraction of early-session momentum anomalies and opening-gap imbalances.</p>', unsafe_allow_html=True)
     
-    tab1, tab2, tab3 = st.tabs(["⚙️ System Logic & Constraints", "📊 Equity Alpha Profile", "📉 Index Confluence Router"])
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Data Sample Size", "191,380 Candles", "2 Years of 1-Min Data")
+    col2.metric("Options Contracts Analyzed", "380,996", "Deep Liquidity Focus")
+    col3.metric("System Profit Factor", "1.89", "Highly Asymmetric")
+
+    st.divider()
+
+    st.markdown("### 🧠 Executive Overview")
+    st.write("This quantitative model was engineered to capture opening structural inefficiencies within the NIFTY 50 index. Rather than relying on discretionary forecasting, the system utilizes a high-frequency Python data parser to evaluate opening volatility, filtering for specific volume multipliers and price-action confirmation.")
     
-    with tab1:
-        st.markdown("### 🧠 The Mathematical Edge")
-        st.write("The Sniper architecture operates by isolating moments of intense institutional volume and volatility expansion, mathematically removing market noise.")
-        
-        col1, col2, col3 = st.columns(3)
-        st.markdown("""
-        <div style="display:flex; justify-content:space-between; gap: 15px; margin-bottom: 20px;">
-            <div class="metric-box" style="flex:1;">
-                <h4 style="margin:0; color:#3B82F6;">ADX Trend Filter</h4>
-                <h2 style="margin:5px 0;">> 25.0</h2>
-                <span style="font-size:12px; color:#64748B;">Requires established directional momentum.</span>
-            </div>
-            <div class="metric-box" style="flex:1;">
-                <h4 style="margin:0; color:#10B981;">Relative Volume (RVOL)</h4>
-                <h2 style="margin:5px 0;">> 2.0x</h2>
-                <span style="font-size:12px; color:#64748B;">2x the 20-period moving average volume.</span>
-            </div>
-            <div class="metric-box" style="flex:1;">
-                <h4 style="margin:0; color:#F59E0B;">Volatility Expansion</h4>
-                <h2 style="margin:5px 0;">> 1.5x</h2>
-                <span style="font-size:12px; color:#64748B;">True Range vs ATR (Squeeze Breakout).</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("### ⚙️ Institutional Edge (Black Box Metrics)")
+    st.markdown("""
+    <div class="premium-card">
+        <h4 style="color:#3B82F6;">1. Temporal Optimization (Time-Based Edge)</h4>
+        <p style="color:#CBD5E1;">Data mining revealed massive structural inefficiencies during the first 90 minutes of the trading session. The algorithm mathematically restricts trade initiation exclusively to this power-hour window, bypassing midday institutional chop.</p>
+        <h4 style="color:#10B981;">2. Volatility Band Reversion</h4>
+        <p style="color:#CBD5E1;">By isolating specific volatility percentiles and standard deviation compressions, the options-buying sub-system achieved an <b>88.97% historical accuracy rate</b> on targeted proprietary setups.</p>
+        <h4 style="color:#F59E0B;">3. Monte Carlo Risk Architecture</h4>
+        <p style="color:#CBD5E1;">Subjected to 1,000 Monte Carlo simulation sequences, the system's risk architecture utilizes absolute mechanical execution. It mandates strictly calculated Good-Till-Cancel (GTC) trailing stops, ensuring maximum daily drawdown limits are mathematically impossible to breach.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        st.markdown("### 🛑 Immutable System Constraints")
-        st.markdown("""
-        <div class="terminal-box">
-        <span class="highlight-orange">[RULE 1] Temporal Lockout (The 12:30 PM Rule):</span> Morning breakouts frequently display high-frequency stop-hunting behavior. The system ignores data prior to 12:30 PM IST, syncing execution with European open volatility.<br><br>
-        <span class="highlight-orange">[RULE 2] Ammunition Limits:</span> Engine forcibly powers down after 2 triggered signals per day to prevent overtrading.<br><br>
-        <span class="highlight-orange">[RULE 3] Autonomous Exits:</span><br>
-        &nbsp;&nbsp;1. <b>Hard SL:</b> Spot crosses breakout candle boundary.<br>
-        &nbsp;&nbsp;2. <b>Dynamic TSL:</b> Spot pulls back 0.5% from the peak high/low.<br>
-        &nbsp;&nbsp;3. <b>Theta Limit:</b> Position held > 65 minutes with no momentum triggers automatic market exit.
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("### 🔒 Proprietary Architecture")
-        st.warning("The underlying Python source code and comprehensive PDF architectural reports are highly classified. Exhibition of system logic is restricted to these high-level metrics to protect the quantitative edge.")
+# ==========================================
+# PANEL 3: HIGH-BETA VOLATILITY ARBITRAGE
+# ==========================================
+elif active_module == "⚡ High-Beta Volatility Arbitrage":
+    st.markdown('<p class="gradient-text">Volatility Squeeze Arbitrage Engine</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">Non-directional options buying strategy capitalizing on extreme volatility compression in high-beta energy assets.</p>', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Backtest Horizon", "5 Years", "605 Executions")
+    col2.metric("Cumulative Return", "+104.94%", "Post-Slippage")
+    col3.metric("System Sharpe Ratio", "0.43", "Institutional Grade")
 
-    with tab2:
-        st.markdown("### 📈 Target Universe Optimization (1-Year Audit)")
-        st.write("Not all volatile assets suit the architecture. The deep analytics engine profiled historical edge, filtering out 'Bleeders' and 'Theta Traps'.")
+    st.divider()
+
+    st.markdown("### 🧠 Executive Overview")
+    st.write("This proprietary engine operates on a highly positive-skew profile. Utilizing an At-The-Money (ATM) options straddle methodology, it identifies severe Bollinger/ATR compressions prior to explosive directional action. While the base win rate is mathematically conservative, the magnitude of winning executions drastically outpaces mitigated losses.")
+
+    row1, row2 = st.columns([2, 1.5])
+    
+    with row1:
+        st.markdown("### 📊 Temporal Execution Edge")
+        st.write("The system maximizes capital efficiency by heavily weighting late-session entries (Buy-To-Sell-Tomorrow), capturing overnight macroeconomic expansion while minimizing intraday theta decay.")
         
-        performance_data = pd.DataFrame([
-            {"Ticker": "ADANIENSOL", "Trades": 1, "Net PnL (₹)": 16257.21, "Status": "Core Alpha"},
-            {"Ticker": "VEDL", "Trades": 1, "Net PnL (₹)": 10299.11, "Status": "Core Alpha"},
-            {"Ticker": "ADANIENT", "Trades": 3, "Net PnL (₹)": 8234.77, "Status": "Core Alpha"},
-            {"Ticker": "LODHA", "Trades": 1, "Net PnL (₹)": 2968.93, "Status": "Approved Suite"},
-            {"Ticker": "CGPOWER", "Trades": 2, "Net PnL (₹)": 2082.61, "Status": "Approved Suite"},
-        ])
-        
+        # Plotting the PnL Distribution based on the actual report data
+        pnl_data = pd.DataFrame({
+            "Execution Window": ["BTST (Overnight)", "Morning Intraday", "Event-Driven (News)"],
+            "Net PnL Generated (k)": [76.9, 28.1, 0.0]
+        })
         fig = px.bar(
-            performance_data.sort_values(by="Net PnL (₹)", ascending=False),
-            x="Ticker", y="Net PnL (₹)", color="Status",
-            color_discrete_map={"Core Alpha": "#10B981", "Approved Suite": "#3B82F6"},
-            title="Realized PnL Tracker - Top 5 Performers (Capital Model: ₹1,00,000)"
+            pnl_data, x="Execution Window", y="Net PnL Generated (k)", 
+            color="Execution Window",
+            color_discrete_sequence=["#10B981", "#3B82F6", "#EF4444"],
+            title="Net Profit Distribution by Algorithmic Execution Window"
         )
-        fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", font=dict(color="white"))
+        fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", font=dict(color="#CBD5E1"))
         st.plotly_chart(fig, use_container_width=True)
-        
-        st.markdown("### 🔒 Data Source & Engine")
-        st.info("Raw Pandas testing environments and DhanHQ API logic sequences are secured and not available for public viewing.")
 
-    with tab3:
-        st.markdown("### 📉 Advanced Indian Index Signal Generator")
-        st.write("The v21.2 Precision Sniper Engine is built specifically for NIFTY and BANKNIFTY, combining multiple sophisticated technical modules into a single, weighted confidence score.")
-        
+    with row2:
+        st.markdown("### 🛡️ Core Constraints")
         st.markdown("""
-        <div class="premium-card" style="margin-top: 20px;">
-            <h4 style="color:#3B82F6;">🧠 The Confluence Matrix</h4>
-            <p>The system evaluates the underlying spot price against an array of institutional indicators, penalizing conflicts and demanding a <b>>70% Confidence Score</b> to trigger.</p>
-            <ul>
-                <li><b>Supertrend (10x3):</b> Primary directional filter.</li>
-                <li><b>Multi-Timeframe (MTF):</b> Requires alignment across 5m, 15m, and 1H windows.</li>
-                <li><b>VWAP Sigma Bands:</b> Checks distance from Volume Weighted Average Price; penalizes extreme deviations.</li>
-                <li><b>Cumulative Delta & Order Flow:</b> Tracks underlying buying/selling pressure imbalances.</li>
-                <li><b>Options Data (PCR & IV Skew):</b> Factors in Put-Call Ratio and Implied Volatility skew based on VIX proxy.</li>
-        </ul>
-        <hr style="border-color: #334155;">
-        <h4 style="color:#10B981;">🛡️ Delta & Target Execution</h4>
-        <p>Once a signal is passed, the engine queries the live option chain to select strikes with a precise <b>Delta between 0.30 and 0.55</b>. Targets (T1/T2) and Trailing Stops are then calculated dynamically based on current ATR and session volatility multipliers.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-        st.markdown("### 🔒 Index Strategy Source")
-        st.info("The Index Option Core and Scanner Python notebooks are locked. Deep structural code remains proprietary.")
+        <div class="premium-card">
+            <ul style="color:#CBD5E1;">
+                <li><b>Capital Allocation:</b> Algorithmically capped at 1% to 2% of total portfolio equity to survive extended loss sequences.</li>
+                <li><b>Drawdown Breakers:</b> Incorporates a strict circuit breaker that pauses execution if volatility regimes shift unfavorably.</li>
+                <li><b>Mechanical Decay Defense:</b> Forces liquidation at the subsequent open to neutralize overnight theta bleed.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ==========================================
-# PANEL 3: STAT-ARB & MACROS (TITAN)
+# PANEL 4: 5-ASSET ALPHA SUITE
 # ==========================================
-elif active_module == "🏛️ Stat-Arb & Global Macros (Titan)":
-    st.markdown('<p class="gradient-text">Titan V6 & Gold Apex Compounder</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-text">Quantitative mean-reversion frameworks and Global Macro commodity execution architectures.</p>', unsafe_allow_html=True)
+elif active_module == "🎯 5-Asset Alpha Suite":
+    st.markdown('<p class="gradient-text">The 5-Asset Institutional Portfolio</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">A multi-strategy architecture utilizing directional and delta-neutral systems across highly liquid equities.</p>', unsafe_allow_html=True)
+
+    st.divider()
     
-    st.markdown("""
-    <div class="premium-card">
-        <h3 style="color:#3B82F6;">🔗 Pairs Arbitrage Architecture (SOL / LINK)</h3>
-        <p>Built for the Bybit Unified account structure, this engine trades the spread between two historically correlated assets.</p>
-        <ul>
-            <li><b>The Logic:</b> Calculates a rolling Z-Score of the ratio between Asset A and Asset B over a 168-hour window.</li>
-            <li><b>Entry & Veto:</b> Triggers at a Z-Score deviation of ±2.5. An <b>ARIMA model</b> is deployed as a final veto check to predict if the spread is likely to continue diverging before entering.</li>
-            <li><b>Iceberg Execution:</b> Uses "LimitMaker" orders to capture rebate fees, splitting large institutional positions into smaller chunks to bypass exchange notional limits.</li>
-            <li><b>Dynamic Sizing:</b> Position sizing is volatility-weighted; the more volatile asset receives a proportionally smaller allocation to maintain true neutrality.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("### 🧠 Executive Overview")
+    st.write("Subjected to a rigorous 10+ year historical simulation involving 387 trades per strategy, this portfolio extracts highly asymmetric returns. By classifying market regimes into distinct volatility environments, the engine seamlessly transitions between directional options buying and non-directional straddles.")
+
+    st.markdown("### 📊 Backtested Edge & Sharpe Ratios")
     
-    # Visualization of Theoretical Z-Score
-    st.markdown("#### 📈 Theoretical Z-Score Spread Dynamics")
-    np.random.seed(42)
-    time_series = pd.date_range(start="00:00", periods=200, freq="5min")
-    z_scores = np.zeros(200)
-    for i in range(1, 200):
-        z_scores[i] = z_scores[i-1] * 0.95 + np.random.randn() * 0.2
+    # Portfolio Data from the "Comprehensive Option Trading Report"
+    portfolio_data = pd.DataFrame({
+        "Asset": ["BHARTIARTL", "BRITANNIA", "BOSCHLTD", "BEL", "BANKBARODA"],
+        "Strategy Phase": ["Directional", "Directional", "Non-Directional", "Directional", "Non-Directional"],
+        "Win Rate (%)": [95.35, 94.06, 92.51, 94.83, 86.30],
+        "Sharpe Ratio": [16.75, 16.21, 13.91, 12.65, 11.30]
+    })
     
-    z_scores[50:60] += np.linspace(0, 3, 10)
-    z_scores[60:80] -= np.linspace(0, 3, 20)
-    
-    z_df = pd.DataFrame({"Time": time_series, "Z-Score": z_scores})
-    
-    fig_z = go.Figure()
-    fig_z.add_trace(go.Scatter(x=z_df["Time"], y=z_df["Z-Score"], name="Spread Z-Score", line=dict(color="#3B82F6", width=2)))
-    fig_z.add_hline(y=2.5, line_dash="dash", line_color="#EF4444", annotation_text="Short Spread Entry (+2.5)")
-    fig_z.add_hline(y=-2.5, line_dash="dash", line_color="#10B981", annotation_text="Long Spread Entry (-2.5)")
-    fig_z.add_hline(y=0, line_color="#9CA3AF", annotation_text="Mean Equilibrium Target (0)")
-    
-    fig_z.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)", 
-        paper_bgcolor="rgba(0,0,0,0)", 
-        font=dict(color="#CBD5E1"),
-        height=350,
-        margin=dict(l=20, r=20, t=30, b=20)
+    fig2 = px.scatter(
+        portfolio_data, x="Win Rate (%)", y="Sharpe Ratio", 
+        color="Strategy Phase", size="Sharpe Ratio", text="Asset",
+        title="Portfolio Analytics: Win Rate vs. Risk-Adjusted Returns",
+        color_discrete_sequence=["#3B82F6", "#F59E0B"]
     )
-    st.plotly_chart(fig_z, use_container_width=True)
-    
+    fig2.update_traces(textposition='top center')
+    fig2.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", font=dict(color="#CBD5E1"), xaxis=dict(range=[80, 100]))
+    st.plotly_chart(fig2, use_container_width=True)
+
+    st.markdown("### 🛡️ Risk Management Hierarchy")
     st.markdown("""
     <div class="premium-card">
-        <h3 style="color:#F59E0B;">🏆 GOLD (XAUUSD) Global Macro Architectures</h3>
-        <p>Operating via MetaTrader 5 (MT5), these modules apply quantitative analysis to high-leverage prop-firm environments.</p>
-        <ul>
-            <li><b>The Asymmetric Sniper (v8):</b> Focuses on massive runner extraction. Uses an ADX chop-filter (>25) and enters on Z-Score extremes. Implements aggressive trailing stops to capture multi-day trends.</li>
-            <li><b>The Apex Compounder (v10):</b> A high-leverage "kamikaze" protocol utilizing 5% account risk per trade. Backtesting shows extreme capital multipliers, heavily dependent on the ADX filter to avoid drawdown sequences.</li>
-            <li><b>Institutional Breakeven Logic:</b> Moves stop-loss to entry cost immediately upon capturing 50% partial profits (TP1), ensuring risk-free exposure on the remaining runner volume.</li>
-        </ul>
+        <p style="color:#CBD5E1;">Success in this architecture is solely reliant on executing the <b>Risk Management Pyramid:</b></p>
+        <ol style="color:#CBD5E1;">
+            <li><b>Position Sizing:</b> Absolute ceiling of 2% capital risk per trade.</li>
+            <li><b>Profit Target Trailing:</b> Mechanical lock-in of profits by adjusting trailing stops to break-even after +15% momentum gain.</li>
+            <li><b>Time-Based Exits:</b> Mandatory liquidation prior to extreme late-session settlement volatility.</li>
+        </ol>
+        <p style="color:#9CA3AF; font-size:12px; margin-top:15px;">*Note: The exact technical triggers, support/resistance formulas, and volume multipliers governing entry are heavily classified and retained internally.*</p>
     </div>
     """, unsafe_allow_html=True)
-    
-    st.markdown("### 🔒 Global Macro Systems & Source Code")
-    st.warning("The source files (Z-Score Pairs Engine, XRP Institutional Engine, and Gold MT5 Architecture) contain highly sensitive quantitative algorithms. Access is strictly disabled for public viewing.")
