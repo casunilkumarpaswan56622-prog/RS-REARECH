@@ -61,30 +61,9 @@ st.markdown("""
     .highlight-green { color: #10B981; font-weight: bold; }
     .highlight-blue { color: #3B82F6; font-weight: bold; }
     .highlight-orange { color: #F59E0B; font-weight: bold; }
+    .metric-box { border-left: 3px solid #10B981; padding-left: 10px; }
 </style>
 """, unsafe_allow_html=True)
-
-# Helper function to safely load files
-def load_file(filename):
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, filename)
-    if os.path.exists(file_path):
-        with open(file_path, "rb") as f:
-            return f.read()
-    return None
-
-def create_download_button(label, filename, mime_type=None):
-    file_data = load_file(filename)
-    if file_data:
-        st.download_button(
-            label=f"📥 {label}",
-            data=file_data,
-            file_name=filename,
-            mime=mime_type,
-            use_container_width=True
-        )
-    else:
-        st.error(f"⚠️ '{filename}' not found on server.")
 
 # --- SIDEBAR EXECUTIVE PROFILE ---
 st.sidebar.markdown("### 🏛️ System Architecture")
@@ -220,7 +199,7 @@ elif active_module == "🎯 Equities & Index (Sniper Engine)":
         st.plotly_chart(fig, use_container_width=True)
         
         st.markdown("### 🔒 Data Source & Engine")
-        st.info("Raw Pandas testing environments and DhanHQ API logic sequences are secured and not available for public download.")
+        st.info("Raw Pandas testing environments and DhanHQ API logic sequences are secured and not available for public viewing.")
 
     with tab3:
         st.markdown("### 📉 Advanced Indian Index Signal Generator")
@@ -243,15 +222,15 @@ elif active_module == "🎯 Equities & Index (Sniper Engine)":
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("### 🔒 Index Strategy Source")
-    st.info("The Index Option Core and Scanner Python notebooks are locked. Deep structural code remains proprietary.")
+        st.markdown("### 🔒 Index Strategy Source")
+        st.info("The Index Option Core and Scanner Python notebooks are locked. Deep structural code remains proprietary.")
 
 # ==========================================
 # PANEL 3: STAT-ARB & MACROS (TITAN)
 # ==========================================
 elif active_module == "🏛️ Stat-Arb & Global Macros (Titan)":
-    st.markdown('<p class="gradient-text">Titan V6: Statistical Arbitrage</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-text">Quantitative mean-reversion frameworks operating across highly cointegrated pairs (SOL/LINK) and Global Macro commodities (XAUUSD).</p>', unsafe_allow_html=True)
+    st.markdown('<p class="gradient-text">Titan V6 & Gold Apex Compounder</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">Quantitative mean-reversion frameworks and Global Macro commodity execution architectures.</p>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="premium-card">
@@ -266,16 +245,14 @@ elif active_module == "🏛️ Stat-Arb & Global Macros (Titan)":
     </div>
     """, unsafe_allow_html=True)
     
-    # Visualization of Z-Score
+    # Visualization of Theoretical Z-Score
     st.markdown("#### 📈 Theoretical Z-Score Spread Dynamics")
     np.random.seed(42)
     time_series = pd.date_range(start="00:00", periods=200, freq="5min")
-    # Simulate a mean reverting walk
     z_scores = np.zeros(200)
     for i in range(1, 200):
         z_scores[i] = z_scores[i-1] * 0.95 + np.random.randn() * 0.2
     
-    # Force a spike
     z_scores[50:60] += np.linspace(0, 3, 10)
     z_scores[60:80] -= np.linspace(0, 3, 20)
     
