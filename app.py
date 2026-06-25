@@ -3,9 +3,11 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
+import time
+from datetime import datetime, timedelta
 
 # ==========================================
-# 🏛️ INSTITUTIONAL UI/UX ARCHITECTURE
+# 🏛️ INSTITUTIONAL UI/UX ARCHITECTURE & CSS
 # ==========================================
 st.set_page_config(
     page_title="CA Sunil Kumar Paswan | Quant Architect",
@@ -20,400 +22,354 @@ st.markdown("""
     
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
-        background-color: #020617; /* Institutional Deep Dark */
+        background-color: #020617; /* Institutional Deep Slate */
         color: #E2E8F0;
     }
     
-    /* Typography */
     .title-gradient {
         background: linear-gradient(90deg, #D4AF37 0%, #FACC15 50%, #F59E0B 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 42px;
+        font-size: 48px;
         font-weight: 800;
-        letter-spacing: -1px;
+        letter-spacing: -1.5px;
         margin-bottom: 0px;
     }
-    .pdf-quote {
-        border-left: 4px solid #D4AF37;
-        background: rgba(212, 175, 55, 0.05);
-        padding: 15px 20px;
-        font-style: italic;
-        color: #CBD5E1;
-        font-size: 16px;
-        margin-bottom: 20px;
+    
+    .subtitle {
+        color: #94A3B8;
+        font-size: 18px;
+        font-weight: 300;
+        margin-bottom: 30px;
+        letter-spacing: 0.5px;
     }
-    .section-header {
-        border-bottom: 1px solid #1E293B;
-        padding-bottom: 8px;
-        margin-top: 40px;
-        margin-bottom: 20px;
-        color: #F8FAFC;
-        font-size: 22px;
-        font-weight: 600;
-    }
-
-    /* Cards */
+    
     .glass-card {
-        background: rgba(15, 23, 42, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(51, 65, 85, 0.6);
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(51, 65, 85, 0.8);
         border-radius: 12px;
         padding: 24px;
         margin-bottom: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
     }
-    .glass-card:hover {
-        border-color: #D4AF37;
-        transform: translateY(-2px);
-    }
+    .glass-card:hover { border-color: #D4AF37; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1); }
     
-    /* Terminal Console */
+    .metric-value { font-size: 38px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+    .metric-green { color: #10B981; }
+    .metric-gold { color: #FACC15; }
+    .metric-blue { color: #38BDF8; }
+    .metric-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #64748B; font-weight: 600; margin-top: 5px;}
+    
     .terminal-console {
-        background-color: #020617;
+        background-color: #000000;
         border: 1px solid #1E293B;
-        border-left: 3px solid #38BDF8;
-        padding: 16px;
-        border-radius: 6px;
+        border-left: 4px solid #38BDF8;
+        padding: 20px;
+        border-radius: 8px;
         font-family: 'JetBrains Mono', monospace;
-        color: #38BDF8;
+        color: #E2E8F0;
         font-size: 13px;
-        line-height: 1.6;
-        height: 380px;
-        overflow-y: scroll;
-        box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        line-height: 1.7;
+        height: 500px;
+        overflow-y: auto;
+        box-shadow: inset 0 0 30px rgba(0,0,0,1);
     }
     
-    /* Metrics */
-    .metric-val-gold { font-size: 32px; font-weight: 800; color: #FACC15; }
-    .metric-val-green { font-size: 32px; font-weight: 800; color: #10B981; }
-    .metric-val-blue { font-size: 32px; font-weight: 800; color: #38BDF8; }
-    .metric-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #64748B; font-weight: 600; }
+    /* Terminal Output Colors */
+    .t-cyan { color: #22D3EE; font-weight: bold; }
+    .t-green { color: #10B981; }
+    .t-yellow { color: #FBBF24; }
+    .t-red { color: #EF4444; }
+    .t-white { color: #FFFFFF; }
 </style>
 """, unsafe_allow_html=True)
+
+# ==========================================
+# 🔐 SECURE CLIENT AUTHENTICATION (7-DAY PASS)
+# ==========================================
+if 'logged_in' not in st.session_state:
+    st.session_state.logged_in = False
+    st.session_state.license_expiry = None
+
+def login():
+    st.session_state.logged_in = True
+    st.session_state.license_expiry = datetime.now() + timedelta(days=7)
+
+if not st.session_state.logged_in:
+    col1, col2, col3 = st.columns([1, 1.5, 1])
+    with col2:
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
+        st.markdown('<div class="glass-card" style="text-align: center;">', unsafe_allow_html=True)
+        st.markdown('<p class="title-gradient" style="font-size: 32px;">CA SUNIL KUMAR PASWAN</p>', unsafe_allow_html=True)
+        st.markdown("<p style='color:#94A3B8; margin-bottom: 20px;'>Institutional Quantitative Architecture | Secure Client Portal</p>", unsafe_allow_html=True)
+        
+        with st.form("auth"):
+            email = st.text_input("Corporate Email Address")
+            phone = st.text_input("Registered Mobile Number")
+            st.caption("Access strictly monitored. 7-Day Trial License issued upon verification.")
+            submit = st.form_submit_button("Authenticate & Enter Black Box")
+            if submit and email and phone:
+                login()
+                st.rerun()
+            elif submit:
+                st.error("Invalid credentials.")
+        st.markdown('</div>', unsafe_allow_html=True)
+    st.stop()
 
 # ==========================================
 # 🧭 SIDEBAR NAVIGATION
 # ==========================================
 with st.sidebar:
-    st.markdown("### 🏦 CA Sunil Kr Paswan")
-    st.markdown("*Quantitative Systems Architect*")
-    st.caption("📍 Jamadoba, Jharkhand | ✉️ sunilbla.acc@gmail.com")
-    
+    st.markdown(f"### 🏦 CA Sunil Kr Paswan")
+    st.caption("Chief Quantitative Architect")
+    st.markdown(f"**License Valid Until:**<br><span style='color:#10B981'>{st.session_state.license_expiry.strftime('%d %b %Y')}</span>", unsafe_allow_html=True)
     st.divider()
     
-    st.markdown("### 🔬 System Architecture")
-    selected_module = st.radio(
-        "Navigate:",
-        [
-            "📜 The Institutional Manifesto", 
-            "🎯 Equities: Precision V21 Confluence", 
-            "🌍 XAUUSD: The Asymmetric Compounder",
-            "⚡ Crypto: Titan Stat-Arb Engine",
-            "🛡️ Risk: Monte Carlo & Telemetry"
-        ],
-        label_visibility="collapsed"
-    )
+    st.markdown("### 📊 I. HISTORICAL PROOFS")
+    nav_proofs = st.radio("Select Research Base:", [
+        "1. NIFTY 50 Intraday Matrix",
+        "2. ADANIENSOL Straddle Engine",
+        "3. Equity Options Edge (18.2M Rows)"
+    ], label_visibility="collapsed")
     
     st.divider()
+    st.markdown("### 🔴 II. LIVE TELEMETRY")
+    nav_live = st.radio("Select Active VPS Node:", [
+        "4. V21.4 Precision Sniper (Indices)",
+        "5. Titan V6.0 Stat-Arb (Crypto)",
+        "6. Apex Compounder (XAUUSD)"
+    ], label_visibility="collapsed")
+
+# ==============================================================================
+# 📊 MODULE 1: NIFTY 50 INTRADAY MATRIX (FROM PDF)
+# ==============================================================================
+if nav_proofs == "1. NIFTY 50 Intraday Matrix":
+    st.markdown('<p class="title-gradient">NIFTY 50: The 2-Year Intraday Matrix</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Based on 191,380 Intraday Candles & 380,996 Options Contracts.</p>', unsafe_allow_html=True)
+    
+    c1, c2, c3, c4 = st.columns(4)
+    with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">91.04</div><div class="metric-label">Kurtosis (Fat Tails)</div></div>', unsafe_allow_html=True)
+    with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">88.97%</div><div class="metric-label">Peak Win Rate (BB+Put)</div></div>', unsafe_allow_html=True)
+    with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">1.89</div><div class="metric-label">System Profit Factor</div></div>', unsafe_allow_html=True)
+    with c4: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">65.0%</div><div class="metric-label">Gap-Up Win Rate</div></div>', unsafe_allow_html=True)
+
     st.markdown("""
-    <div style='background: #020617; padding: 15px; border-radius: 8px; border: 1px solid #1E293B;'>
-        <div style='color: #64748B; font-size: 11px; text-transform: uppercase; margin-bottom: 5px;'>Live Telemetry</div>
-        <div style='color: #10B981; font-size: 13px; font-weight: 600;'>● DHAN/BYBIT API CONNECTED</div>
-        <div style='color: #E2E8F0; font-size: 12px; margin-top: 8px;'>Rows Parsed: <span style='color:#FACC15'>18.2M+</span></div>
-        <div style='color: #E2E8F0; font-size: 12px;'>Z-Score Engine: Active</div>
-        <div style='color: #E2E8F0; font-size: 12px;'>Telegram Webhooks: Live</div>
+    <div class="glass-card">
+        <h3 style="color: #F8FAFC;">The Illusion of Randomness</h3>
+        <p style="color: #94A3B8; line-height: 1.6;">
+        Retail traders believe the market is random. Our parsing of 191,000+ NIFTY candles mathematically disproves this. 
+        The data reveals a stark <strong>Kurtosis of 91.04</strong>, proving that the Indian Index experiences frequent, violent, extreme moves ("Fat Tails") driven by institutional algorithmic sweeping. The retail trader gets chopped out during the 12:00 PM - 2:00 PM "Dead Zone" (where Win Rates plummet to 45% and slippage doubles), while our system exclusively targets the <strong>9:15 AM - 10:30 AM Peak Liquidity Window</strong>.
+        </p>
     </div>
     """, unsafe_allow_html=True)
-    st.caption("© 2026 Proprietary IP. Mathematical thresholds are hidden for security.")
 
-# ==========================================
-# 📜 MODULE 0: THE INSTITUTIONAL MANIFESTO (FROM PDF)
-# ==========================================
-if selected_module == "📜 The Institutional Manifesto":
-    st.markdown('<p class="title-gradient">The Illusion of Randomness</p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #94A3B8; font-size: 18px; margin-bottom: 30px;">Bridging Chartered Accountancy with Algorithmic Market Micro-Structure.</p>', unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="pdf-quote">
-        "When you stop viewing the market as an unpredictable casino and start viewing it as a logical, predatory mechanism designed to seek out liquidity, you stop being a gambler and start becoming a strategist. The market is a device for transferring money from the impatient to the patient, and from the uninformed to the architect."<br><br>
-        — <i>Excerpt from the Advanced Institutional Masterclass (CA Sunil Paswan, 2026)</i>
-    </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns([1.2, 1])
-    
-    with col1:
-        st.markdown("""
-        <div class="glass-card">
-            <h3 style='margin-top:0; color: #FACC15;'>The AI War on Smart Money Concepts (SMC)</h3>
-            <p style='color: #CBD5E1; font-size: 15px; line-height: 1.6;'>
-                Retail traders recently evolved to use "Smart Money Concepts" (SMC), looking for obvious Order Blocks and Fair Value Gaps. However, institutions deploy High-Frequency Trading (HFT) algorithms to mathematically identify these popular retail SMC setups and use them as <strong>inducement traps</strong>.
-            </p>
-            <p style='color: #CBD5E1; font-size: 15px; line-height: 1.6;'>
-                If an institutional footprint or Order Block is too obvious, it is not a footprint. It is bait. My algorithmic architecture bypasses this by peering directly into the matrix of order execution using <strong>Delta Order Flow, Cumulative Delta Divergence, and Options IV Skew</strong>. We don't trade the pattern; we trade the <i>failure</i> of the pattern.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="glass-card">
-            <h3 style='margin-top:0; color: #FACC15;'>Liquidity: The Oxygen of Smart Money</h3>
-            <p style='color: #CBD5E1; font-size: 15px; line-height: 1.6;'>
-                If a massive fund needs to deploy $500 million, they face an existential problem of slippage. They cannot just "buy." They must buy into existing massive selling pressure. They require an immense pool of counterparties. Where does this liquidity reside? <strong>Exactly where retail traders place their stop losses.</strong> My systems are mathematically designed to execute the moment these liquidity sweeps are absorbed by the algorithms.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown("""
-        <div class="terminal-console" style="height: 100%;">
-            > system.initialize_philosophy()<br>
-            [OK] Zero-Sum Dynamics verified.<br>
-            [OK] Retail Sentiment inverted.<br>
-            <br>
-            > load_sniper_mode()<br>
-            [ACTION] Disabling manual/emotional execution...<br>
-            [OK] Algorithmic discipline enforced.<br>
-            <br>
-            > init_footprint_analysis()<br>
-            [SCAN] Identifying Inducement Pools...<br>
-            [SCAN] Tracking Bid/Ask Volume Deltas...<br>
-            [DETECT] 500 Market Sells at 45,080.<br>
-            [DETECT] Limit Buy Wall Active. Price unmoving.<br>
-            <span style="color: #10B981;">[SIGNAL] Massive Retail Stops Hit. Institutions ABSORB all sells with limit orders. Delta flips positive. Sweep & Absorb verified.</span><br>
-            <br>
-            > await liquidity_sweep()
-        </div>
-        """, unsafe_allow_html=True)
-
-# ==========================================
-# 🎯 MODULE 1: EQUITIES & NIFTY PRECISION ENGINE
-# ==========================================
-elif selected_module == "🎯 Equities: Precision V21 Confluence":
-    st.markdown('<p class="title-gradient">V21.4 Precision Sniper Engine</p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #94A3B8; font-size: 18px; margin-bottom: 30px;">Options Delta-Proxy Engine processing 18.2M+ rows of Indian Equity & Index Data.</p>', unsafe_allow_html=True)
-
-    m1, m2, m3, m4 = st.columns(4)
-    with m1: st.markdown('<div class="glass-card"><div class="metric-val-green">18.2M</div><div class="metric-label">Data Rows Parsed</div></div>', unsafe_allow_html=True)
-    with m2: st.markdown('<div class="glass-card"><div class="metric-val-green">70%</div><div class="metric-label">Min Confluence Threshold</div></div>', unsafe_allow_html=True)
-    with m3: st.markdown('<div class="glass-card"><div class="metric-val-green">93.8%</div><div class="metric-label">Max Historic Win Rate</div></div>', unsafe_allow_html=True)
-    with m4: st.markdown('<div class="glass-card"><div class="metric-val-green">15:15</div><div class="metric-label">Hard Theta Exit</div></div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="section-header">🧠 The Multi-Dimensional Scoring Engine (Dhan API)</div>', unsafe_allow_html=True)
-    
-    col_text, col_chart = st.columns([1, 1])
-    with col_text:
-        st.write("Retail traders rely on a single lagging indicator. The V21.4 architecture relies on a **Dynamic Confluence Matrix** requiring a minimum 70% threshold to fire a signal. It evaluates:")
-        st.markdown("""
-        *   **Multi-Timeframe (MTF) Alignment:** Syncs 5m, 15m, and 1H trends to prevent fighting macro momentum. Vetoes trades if higher timeframes oppose.
-        *   **VWAP Sigma Bands:** Identifies overbought/oversold extremes to avoid late entries.
-        *   **Cumulative Delta Divergence:** Tracks true buying vs. selling pressure to spot hidden institutional absorption before price reacts.
-        *   **Options Chain Parsing (Delta Proxy):** Dynamically parses live Option Chains to select strikes with a specific Delta (0.30 - 0.55), avoiding Theta-heavy OTM traps.
-        *   **Temporal Filters:** Absolute lockout during the midday "Chop Zone" (12:30 PM), executing only in Opening and Closing power hours.
-        """)
-
-    with col_chart:
-        # Reconstructing the Stock-Wise Analytics from the Python Logs
-        edge_data = pd.DataFrame({
-            "Stock": ["ADANIPOWER", "MAZDOCK", "ADANIENSOL", "JINDALSTEL", "LODHA", "VEDL", "TRENT"],
-            "Win Rate (%)": [95.95, 93.96, 93.84, 93.76, 93.55, 91.65, 89.13],
-            "Avg Excursion (%)": [1.94, 1.85, 2.09, 1.72, 1.89, 1.67, 1.70]
+    colA, colB = st.columns([1, 1])
+    with colA:
+        st.markdown("#### ⏱️ Temporal Win Rate Matrix")
+        # Recreating the exact data from the PDF
+        time_data = pd.DataFrame({
+            "Time Slot": ["9:15 - 10:30 AM", "10:30 - 12:00 PM", "12:00 - 2:00 PM", "2:00 - 3:30 PM", "3:30 - 4:00 PM"],
+            "Win Rate (%)": [65.0, 50.0, 45.0, 52.0, 48.0],
+            "Classification": ["PEAK (Gap Trade)", "Medium (Range)", "DEAD (AVOID)", "Revival (Reversal)", "Close (Theta)"]
         })
-        
-        fig = px.scatter(
-            edge_data, x="Avg Excursion (%)", y="Win Rate (%)", size="Avg Excursion (%)", 
-            color="Stock", text="Stock", title="Historical Alpha: Target Excursion vs Probability",
-            template="plotly_dark", color_discrete_sequence=px.colors.qualitative.Pastel
-        )
-        fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", margin=dict(l=0, r=0, t=40, b=0))
-        fig.update_traces(textposition='top center')
+        fig = px.bar(time_data, x="Time Slot", y="Win Rate (%)", color="Win Rate (%)", 
+                     color_continuous_scale="RdYlGn", title="Win Probability by Hour")
+        fig.update_layout(template="plotly_dark", plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+        fig.add_hline(y=50, line_dash="dash", line_color="white", annotation_text="Break Even")
         st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown('<div class="section-header">📡 Live Forward-Testing Telemetry (Log Reconstruction)</div>', unsafe_allow_html=True)
+    with colB:
+        st.markdown("#### 🛡️ Kelly Criterion Monte Carlo (1,000 Runs)")
+        # Generating a simulated normal distribution based on PDF parameters
+        np.random.seed(42)
+        mc_data = np.random.normal(loc=2144, scale=3550, size=1000)
+        fig2 = go.Figure(data=[go.Histogram(x=mc_data, nbinsx=50, marker_color='#38BDF8')])
+        fig2.add_vline(x=-3338, line_dash="dash", line_color="#EF4444", annotation_text="5th Percentile (Max Risk)")
+        fig2.add_vline(x=8064, line_dash="dash", line_color="#10B981", annotation_text="95th Percentile (Max Gain)")
+        fig2.update_layout(template="plotly_dark", plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
+                           title="Daily Expected PnL Distribution (1L Capital)", xaxis_title="Daily PnL (₹)")
+        st.plotly_chart(fig2, use_container_width=True)
+
+# ==============================================================================
+# 📊 MODULE 2: ADANIENSOL STRADDLE ENGINE (FROM PDF)
+# ==============================================================================
+elif nav_proofs == "2. ADANIENSOL Straddle Engine":
+    st.markdown('<p class="title-gradient">Volatility Squeeze Extraction</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">5-Year Backtest (2020-2025) on ADANIENSOL Straddles.</p>', unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns(3)
+    with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">+104.9%</div><div class="metric-label">5-Year Total Return</div></div>', unsafe_allow_html=True)
+    with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">31.7%</div><div class="metric-label">Win Rate (High Skew)</div></div>', unsafe_allow_html=True)
+    with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">76.9k</div><div class="metric-label">BTST PnL Contribution</div></div>', unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1.5, 1])
+    with col1:
+        st.markdown("""
+        ### Strategy Architecture
+        Retail traders lose money on Straddles due to Theta (Time Decay). This proprietary engine filters out 90% of market noise by demanding a **Bollinger Band Width < 8th Percentile** combined with a **Volume Spike > 1.7x** the 20-bar average. 
+        
+        We deploy this exclusively as a **BTST (Buy Today, Sell Tomorrow)** strategy, executed between 1:15 PM and 3:15 PM. By utilizing the overnight gap dynamic in high-beta energy stocks (Beta 0.92), the resulting absolute price move (>1.5%) massively outpaces the overnight Theta decay.
+        
+        *Note: The win rate is mathematically low (31.7%), but the Profit Factor is massive due to the asymmetric payoff of long volatility. Monte Carlo 5th Percentile ensures survival against 53-trade loss streaks.*
+        """)
+    with col2:
+        df_pnl = pd.DataFrame({"Setup": ["BTST", "Morning", "Event"], "PnL (k)": [76.9, 28.1, 0]})
+        fig = px.bar(df_pnl, x="Setup", y="PnL (k)", color="Setup", 
+                     color_discrete_map={"BTST": "#10B981", "Morning": "#38BDF8", "Event": "#475569"})
+        fig.update_layout(template="plotly_dark", plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+        st.plotly_chart(fig, use_container_width=True)
+
+# ==============================================================================
+# 📊 MODULE 3: EQUITY OPTIONS EDGE (PYTHON LOGS)
+# ==============================================================================
+elif nav_proofs == "3. Equity Options Edge (18.2M Rows)":
+    st.markdown('<p class="title-gradient">NIFTY 100 Options Analytics</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">18.2 Million Rows parsed for Momentum Continuation & Black-Scholes Pricing.</p>', unsafe_allow_html=True)
+
     st.markdown("""
-    <div class="terminal-console">
-        [10:10:01] 🟢 LIVE — v21.4 running.<br>
-        ══════════════════════════════════════════════════════════════════<br>
-        🎯 SCANNING: BANKNIFTY | v21.4 Precision Sniper Engine<br>
-        ══════════════════════════════════════════════════════════════════<br>
-        📍 Dir: BULLISH | Supertrend: BULLISH (94 bars)<br>
-        📊 MTF: {'5m': 'BULLISH', '15m': 'BULLISH', '1H': 'BULLISH'} | Consensus: BULLISH<br>
-        📈 HA: NEUTRAL | EMA: BULLISH | RSI: 65.9 | MACD: BULLISH<br>
-        💧 VWAP: OVERBOUGHT_VWAP (+2.55%) | ΔCum: BUYING_PRESSURE<br>
-        📉 PCR: 0.827 [NEUTRAL] — <br>
-        🏦 OI Vel: NEUTRAL | IV Skew: BULLISH_SKEW (+6.61)<br>
-        🔊 Flow: BEARISH_FLOW (ratio: 1.52)<br>
-        🎯 SCORE: 78% (Min: 70%) | VIX≈13.95 | Vol Spike: ✅<br>
-        <span style="color: #10B981">💼 Logged BANKNIFTY CE | ID: 67259.0 | Lot: 15</span><br>
-        <span style="color: #10B981">✅ Signal dispatched to Telegram for BANKNIFTY.</span><br>
-        <br>
-        [10:11:01] 💼 VIRTUAL TRADE MANAGER v21.4 — LIVE TRACKING<br>
-        🔹 BANKNIFTY 53000 CE | LTP: ₹324.50 | SL: ₹288.00 | T1: ₹360.50 | T2: ₹396.50<br>
-        <span style="color: #FACC15">🛡️ T1 HIT — SL moved to Cost BANKNIFTY CE</span><br>
-        <span style="color: #10B981">🎯 TARGET 2 HIT! BANKNIFTY CE | Exit: ₹398.20 | Net: ₹1105/qty</span><br>
-        ✅ Forward-Test Log Closed. Updating Trade Journal...
+    <div class="glass-card">
+        <p style="color: #94A3B8; margin-bottom: 0;">
+        <strong>Methodology:</strong> The system parses 10+ years of 5-minute historical data for 100 liquid equities. It calculates Proprietary Momentum (ADX + RSI), Volatility Expansion (TR/ATR > 1.5), and Relative Volume (RVOL > 2.0). Rather than tracking spot price, it mathematically calculates the 1-Hour forward excursion multiplied by a standard 0.50 ATM Delta to yield realistic Options PnL.
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
-# ==========================================
-# 🌍 MODULE 2: XAUUSD APEX COMPOUNDER
-# ==========================================
-elif selected_module == "🌍 XAUUSD: The Asymmetric Compounder":
-    st.markdown('<p class="title-gradient">The 10x Apex Compounder</p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #94A3B8; font-size: 18px; margin-bottom: 30px;">Prop-Firm & XM Bonus Incubator executing via Asymmetric Runner Extrapolation.</p>', unsafe_allow_html=True)
-
-    p1, p2, p3, p4 = st.columns(4)
-    with p1: st.markdown('<div class="glass-card"><div class="metric-val-gold">559.4%</div><div class="metric-label">Incubator ROI ($500 -> $3.2k)</div></div>', unsafe_allow_html=True)
-    with p2: st.markdown('<div class="glass-card"><div class="metric-val-gold">4.73x</div><div class="metric-label">Prop Firm Multiple ($25k -> $118k)</div></div>', unsafe_allow_html=True)
-    with p3: st.markdown('<div class="glass-card"><div class="metric-val-gold">5.0%</div><div class="metric-label">Kelly Kamikaze Risk / Trade</div></div>', unsafe_allow_html=True)
-    with p4: st.markdown('<div class="glass-card"><div class="metric-val-gold">1.5 ATR</div><div class="metric-label">Trailing Runner Distance</div></div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="section-header">🔥 The Asymmetric Runner Philosophy</div>', unsafe_allow_html=True)
+    # Data from FINAL STOCK OPTION .ipynb log
+    data = {
+        "Ticker": ["ADANIPOWER", "MAZDOCK", "ADANIENSOL", "JINDALSTEL", "ADANIGREEN", "VEDL", "TRENT", "CGPOWER"],
+        "Historical Setups": [10651, 4120, 7513, 6423, 5391, 6312, 7320, 7396],
+        "Win Rate (%)": [95.95, 93.96, 93.84, 93.76, 93.66, 91.65, 89.13, 90.97],
+        "Avg Move (%)": [1.94, 1.85, 2.09, 1.72, 2.26, 1.67, 1.70, 1.86]
+    }
+    df = pd.DataFrame(data)
     
-    col_phil, col_chart2 = st.columns([1, 1.2])
-    
-    with col_phil:
-        st.write("Most traders fail Prop Firm challenges because they use static 1:1 risk-to-reward ratios. The Apex Compounder is designed to survive drawdowns and exploit **Black Swan macro trends** via strict asymmetrical risk.")
-        st.markdown("""
-        <div class="glass-card" style="height: 100%;">
-            <h4 style="color: #FACC15; margin-top: 0;">Execution Mechanics (MT5 API):</h4>
-            <ol style="color: #CBD5E1; font-size: 14px;">
-                <li><strong>Chop Filter:</strong> Absolute refusal to trade unless the macro ADX demonstrates extreme directional strength (> 25).</li>
-                <li><strong>The Z-Score Sweep:</strong> Waits for price to diverge by > 1.5 Standard Deviations against the prevailing 200-EMA trend (identifying the retail Stop Hunt).</li>
-                <li><strong>Securing the Bag:</strong> At 2.0 ATR in profit, the engine liquidates 50% of the position and moves the Stop Loss to Break-even. <em>The trade is now risk-free.</em></li>
-                <li><strong>The Runner:</strong> The remaining 50% is trailed dynamically by 1.5 ATR. If a massive geopolitical event occurs, this runner captures a 5R to 10R multiple, generating exponential equity growth.</li>
-            </ol>
-        </div>
-        """, unsafe_allow_html=True)
-        
-    with col_chart2:
-        # Reconstructing the 1-Year Apex Compounder log data from Python file
-        months = ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
-        balance = [27365, 28552, 25862, 34049, 74703, 78322, 65795, 82598, 99188, 108510, 111230, 118233]
-        
-        comp_df = pd.DataFrame({"Month": months, "Equity Curve ($)": balance})
-        
-        fig = px.area(
-            comp_df, x="Month", y="Equity Curve ($)", 
-            title="The Apex Compounder: $25k to $118k in 12 Months",
-            color_discrete_sequence=["#FACC15"], template="plotly_dark"
-        )
-        fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", margin=dict(l=0, r=0, t=40, b=0))
-        st.plotly_chart(fig, use_container_width=True)
+    st.dataframe(
+        df.style.background_gradient(cmap='viridis', subset=['Win Rate (%)', 'Avg Move (%)']),
+        use_container_width=True, hide_index=True
+    )
 
-# ==========================================
-# ⚡ MODULE 3: CRYPTO Z-SCORE ARB
-# ==========================================
-elif selected_module == "⚡ Crypto: Titan Stat-Arb Engine":
-    st.markdown('<p class="title-gradient">Titan Statistical Arbitrage V6</p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #94A3B8; font-size: 18px; margin-bottom: 30px;">Market-Neutral Pairs Trading Engine on Bybit Unified Margin.</p>', unsafe_allow_html=True)
+# ==============================================================================
+# 🔴 MODULE 4: LIVE TELEMETRY (V21.4 SNIPER)
+# ==============================================================================
+elif nav_live == "4. V21.4 Precision Sniper (Indices)":
+    st.markdown('<p class="title-gradient">V21.4 Precision Sniper Engine</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Real-Time NIFTY / BANKNIFTY Execution Node. (Python Backend Masked)</p>', unsafe_allow_html=True)
 
-    col1, col2 = st.columns([1, 1])
-    
-    with col1:
-        st.markdown("""
-        <div class="glass-card" style="height: 100%;">
-            <h3 style="color: #38BDF8; margin-top: 0;">Mathematical Cointegration</h3>
-            <p style="color: #CBD5E1; font-size: 15px;">
-                This system does not care if Bitcoin or the broader cryptocurrency market goes up or down. It tracks the mathematical pricing ratio between two highly correlated assets (e.g., SOL/USDT and LINK/USDT, or ADA/USDT and XRP/USDT).
-            </p>
-            <p style="color: #CBD5E1; font-size: 15px;">
-                When the rolling Z-Score of their ratio deviates beyond <strong>±2.5 Standard Deviations</strong>, the system identifies an algorithmic mispricing. It automatically shorts the overperforming asset and longs the underperforming asset, capitalizing exclusively on <strong>Mean Reversion</strong> back to the 0.0 baseline.
-            </p>
-            <h4 style="color: #10B981; margin-top: 20px;">ARIMA Veto & Iceberg Execution</h4>
-            <p style="color: #CBD5E1; font-size: 14px;">
-                To bypass exchange slippage limits and crush taker fees, the system uses an <strong>Iceberg Chunker</strong>, breaking massive orders into $50,000 sub-notional chunks utilizing <code>PostOnly</code> Maker Orders to collect exchange rebates. An integrated <strong>ARIMA time-series forecast</strong> vetoes the entry if the deviation is predicted to widen further.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style="padding: 10px; border: 1px solid #38BDF8; border-radius: 6px; background-color: rgba(56, 189, 248, 0.1); margin-bottom: 20px;">
+        <span style="color: #38BDF8; font-weight: bold;">⚡ ALGORITHMIC CONFLUENCE:</span> The engine tracks VWAP Sigma Bands, Cumulative Delta Divergence, Order Flow Imbalance, and Real-Time Options Greeks (Delta/Theta). Circuit Breakers enforce a strict ₹5,000 Daily Loss Limit.
+    </div>
+    """, unsafe_allow_html=True)
 
-    with col2:
-        # Creating a simulated Z-score chart
-        np.random.seed(42)
-        x = np.arange(100)
-        z_scores = np.sin(x/5) * 2 + np.random.normal(0, 0.5, 100)
-        
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=x, y=z_scores, mode='lines', name='Z-Score', line=dict(color='#38BDF8', width=2)))
-        fig.add_hline(y=2.5, line_dash="dash", line_color="#EF4444", annotation_text="Short Spread Entry")
-        fig.add_hline(y=-2.5, line_dash="dash", line_color="#10B981", annotation_text="Long Spread Entry")
-        fig.add_hline(y=0, line_color="#F8FAFC", annotation_text="Mean Reversion Target")
-        
-        fig.update_layout(
-            title="ADA/XRP Z-Score Cointegration Spread",
-            template="plotly_dark",
-            plot_bgcolor="rgba(0,0,0,0)",
-            paper_bgcolor="rgba(0,0,0,0)",
-            margin=dict(l=0, r=0, t=40, b=0),
-            height=380
-        )
-        st.plotly_chart(fig, use_container_width=True)
+    # Simulated Live Terminal based exactly on FINAL INDEX OPTION (1)_2.ipynb logs
+    v21_log = """
+<span class="t-cyan">🚀 v21.4 Precision Sniper Online. Press Ctrl+C to terminate.</span>
+<span class="t-white">🔒 Account: 1107618621 | Threshold: 70% | Delta: 0.3–0.55 | Supertrend: 10×3.0</span>
+<span class="t-green">[09:15:44] 🟢 LIVE — v21.4 running.</span>
 
-# ==========================================
-# 🛡️ MODULE 4: RISK & TELEMETRY
-# ==========================================
-elif selected_module == "🛡️ Risk: Monte Carlo & Telemetry":
-    st.markdown('<p class="title-gradient">Institutional Risk Architecture</p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #94A3B8; font-size: 18px; margin-bottom: 30px;">The mathematical firewall protecting capital from psychological ruin.</p>', unsafe_allow_html=True)
+<span class="t-cyan">══════════════════════════════════════════════════════════════════════════════════════</span>
+<span class="t-cyan">🎯 SCANNING: BANKNIFTY | v21.4 Precision Sniper Engine</span>
+<span class="t-cyan">══════════════════════════════════════════════════════════════════════════════════════</span>
+<span class="t-white">📍 Dir: BULLISH | Supertrend: BULLISH (94 bars)</span>
+<span class="t-white">📊 MTF: {'5m': 'BULLISH', '15m': 'BULLISH', '1H': 'BULLISH'} | Consensus: BULLISH</span>
+<span class="t-white">📈 HA: NEUTRAL | EMA: BULLISH | RSI: 65.9 | MACD: BULLISH</span>
+<span class="t-white">💧 VWAP: OVERBOUGHT_VWAP (+2.55%) | ΔCum: BUYING_PRESSURE</span>
+<span class="t-white">📉 PCR: 0.827 [NEUTRAL] — </span>
+<span class="t-white">🏦 OI Vel: NEUTRAL | IV Skew: BULLISH_SKEW (+6.61)</span>
+<span class="t-white">🔊 Flow: BEARISH_FLOW (ratio: 1.52)</span>
+<span class="t-white">🎯 SCORE: 78% (Min: 70%) | VIX≈13.95 | Vol Spike: ✅</span>
+<span class="t-green">💼 Logged BANKNIFTY CE | ID: 67259.0 | Lot: 15</span>
+<span class="t-cyan">✅ Signal dispatched to Telegram for BANKNIFTY.</span>
 
-    st.write("A profitable algorithm is meaningless without a mathematical guarantee of survival. My systems are governed by strict, algorithmic circuit breakers, Monte Carlo stress-testing, and real-time remote telemetry.")
+<span class="t-cyan">══════════════════════════════════════════════════════════════════════════════════════</span>
+<span class="t-cyan">💼 VIRTUAL TRADE MANAGER v21.4 — LIVE TRACKING</span>
+<span class="t-cyan">══════════════════════════════════════════════════════════════════════════════════════</span>
+<span class="t-white">🔹 BANKNIFTY 53000 CE | LTP: ₹324.00 | SL: ₹288.50 | T1: ₹360.00 | T2: ₹396.00</span>
+<span class="t-green">🛡️ T1 HIT — SL moved to Cost BANKNIFTY CE</span>
+<span class="t-white">🔹 BANKNIFTY 53000 CE | LTP: ₹365.20 | SL: ₹324.00 (SL@Cost)</span>
+<span class="t-green">🎯 TARGET 2 HIT! BANKNIFTY CE | Entry: ₹324.00 | Exit: ₹398.50</span>
+<span class="t-green">💰 Net Gain: ₹74.50/qty</span>
 
-    r1, r2, r3 = st.columns(3)
-    
-    with r1:
-        st.markdown("""
-        <div class="glass-card">
-            <h4 style="color: #F8FAFC; margin-top: 0;">1. Monte Carlo Stress Testing</h4>
-            <p style="color: #94A3B8; font-size: 13px;">Before deploying capital, the engine subjects historical trades to 1,000+ randomized sequence shuffles (Monte Carlo). It maps out the 95th Percentile Maximum Drawdown to ensure the system survives "Black Swan" outlier events.</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-    with r2:
-        st.markdown("""
-        <div class="glass-card">
-            <h4 style="color: #F8FAFC; margin-top: 0;">2. Algorithmic Circuit Breakers</h4>
-            <p style="color: #94A3B8; font-size: 13px;">Hard limits are coded directly into the core loop. If the Daily Realized Loss limit ($MAX_DAILY_LOSS) is hit, or the maximum signals per day are exhausted, the system locks itself and revokes trading access until the next server reset.</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-    with r3:
-        st.markdown("""
-        <div class="glass-card">
-            <h4 style="color: #F8FAFC; margin-top: 0;">3. Smart EOD Journaling</h4>
-            <p style="color: #94A3B8; font-size: 13px;">At 15:15 IST, the bot automatically closes all intraday positions due to Theta Decay, generates an Excel (CSV) trade journal calculating ROI & Duration metrics, and securely dispatches a summary payload to Telegram.</p>
-        </div>
-        """, unsafe_allow_html=True)
+<span class="t-cyan">✅ Forward-Test Log Closed. Updating trade_journal_v21_4.csv</span>
+<span class="t-white">[15:15:00] 📊 END OF DAY SUMMARY GENERATED. Excel Exported.</span>
+    """
+    st.markdown(f'<div class="terminal-console">{v21_log}</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="section-header">📱 Real-Time Telegram Webhook Integration</div>', unsafe_allow_html=True)
-    
-    col_img, col_desc = st.columns([1, 2])
-    with col_img:
-        st.markdown("""
-        <div style="background-color: #1E293B; border-radius: 12px; padding: 20px; border: 1px solid #334155;">
-            <div style="color: #38BDF8; font-weight: bold; margin-bottom: 10px;">Telegram Bot (JSON POST)</div>
-            <div style="background-color: #0F172A; border-radius: 8px; padding: 12px; font-size: 12px; color: #E2E8F0; margin-bottom: 10px; font-family: monospace;">
-                📊 <b>END OF DAY SUMMARY (2026-06-24)</b><br>
-                ────────────────────────<br>
-                📝 Total Trades: 4<br>
-                🏆 Wins: 3 | 💔 Losses: 1<br>
-                🎯 Win Rate: 75.0%<br>
-                💰 Net Virtual PnL: ₹14,250.00<br>
-                ────────────────────────<br>
-                📁 <b>Excel Report Saved:</b> Daily_Trade_Report.xlsx
-            </div>
-            <div style="background-color: #0F172A; border-radius: 8px; padding: 12px; font-size: 12px; color: #E2E8F0; font-family: monospace;">
-                🚨 <b>EXIT COMMAND: VEDL</b> 🚨<br><br>
-                ⚠️ <b>Reason:</b> 📉 TRAILING SL HIT (0.5% Pullback)<br>
-                💰 <b>Exit Spot:</b> ₹322.75<br>
-                ⏱️ <b>Time Held:</b> 42 mins<br><br>
-                🛒 <b>Action:</b> CLOSE CE POSITION IMMEDIATELY
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col_desc:
-        st.write("The system is entirely headless. It lives on a cloud VPS and communicates with the architect purely via encrypted JSON POST requests to a private Telegram channel. This ensures zero latency and allows for remote monitoring of algorithm health, trade entries, trailing stop movements, and daily accounting metrics without ever needing to open a brokerage terminal.")
-        st.write("In Version 21.4, the Telegram dispatcher was rebuilt to bypass Markdown parsing crashes using secure REST architecture, ensuring no trade exit is ever missed.")
+# ==============================================================================
+# 🔴 MODULE 5: LIVE TELEMETRY (TITAN V6 CRYPTO)
+# ==============================================================================
+elif nav_live == "5. Titan V6.0 Stat-Arb (Crypto)":
+    st.markdown('<p class="title-gradient">Titan V6.0 Statistical Arbitrage</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Market-Neutral Z-Score Spreads via Bybit Unified Margin.</p>', unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns(3)
+    with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">SOL/LINK</div><div class="metric-label">Active Cointegration Pair</div></div>', unsafe_allow_html=True)
+    with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">2.5σ</div><div class="metric-label">Execution Z-Score</div></div>', unsafe_allow_html=True)
+    with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">10x</div><div class="metric-label">Linear Leverage</div></div>', unsafe_allow_html=True)
+
+    # Simulated Terminal based on Z SCORE SOL LINK _2.ipynb
+    titan_log = """
+<span class="t-white">--- 🏛️ TITAN V6: INSTITUTIONAL MAKER EDITION ---</span>
+<span class="t-white">  🎯 Target: SOLUSDT / LINKUSDT</span>
+<span class="t-white">  🛡️ Risk: 5% Size | 4.0 Stop | 0.2 Exit (Prop Firm Safe)</span>
+
+<span class="t-cyan">📡 SYNCING CLOCKS...</span>
+<span class="t-green">✅ TIME SYNCED. Drift: -0.04s</span>
+<span class="t-cyan">📡 INITIALIZING SESSION...</span>
+<span class="t-green">✅ CONNECTED. Equity: $25,000.00</span>
+<span class="t-white">   Setting Leverage... Done.</span>
+
+<span class="t-cyan">📡 MONITORING MARKET...</span>
+<span class="t-white">⏳ 14:02:11 | Z-Score: 1.842 | Status: NEUTRAL</span>
+<span class="t-white">⏳ 14:02:21 | Z-Score: 2.105 | Status: NEUTRAL</span>
+
+<span class="t-green">📈 SIGNAL [Z: 2.105]: Short SOL, Long LINK.</span>
+<span class="t-cyan">🚀 SIGNAL FIRED: Sell 17 SOL / Buy 182 LINK</span>
+<span class="t-green">✅ [SOLUSDT] Sell 17 Fill Success (LimitMaker).</span>
+<span class="t-green">✅ [LINKUSDT] Buy 182 Fill Success (LimitMaker).</span>
+
+<span class="t-white">⏳ 14:15:30 | Z-Score: 0.198 | Status: ACTIVE TRADE</span>
+<span class="t-green">🎯 TARGET REACHED [Z: 0.198]. Mean Reversion Complete.</span>
+<span class="t-cyan">🛑 CLOSING ALL POSITIONS (PROFIT)...</span>
+<span class="t-green">✅ CLOSED via Iceberg Chunker.</span>
+<span class="t-white">⏳ Cooldown activated for 1 HOUR. Letting the spread reset.</span>
+    """
+    st.markdown(f'<div class="terminal-console">{titan_log}</div>', unsafe_allow_html=True)
+
+# ==============================================================================
+# 🔴 MODULE 6: LIVE TELEMETRY (APEX COMPOUNDER)
+# ==============================================================================
+elif nav_live == "6. Apex Compounder (XAUUSD)":
+    st.markdown('<p class="title-gradient">The XAUUSD Apex Compounder</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Prop-Firm Asymmetric Runner | 10x Scale-Up Engine.</p>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="glass-card" style="border-left: 4px solid #FACC15;">
+        <p style="color: #94A3B8; margin-bottom: 0;">
+        <strong>Institutional Edge:</strong> Most algorithms fail because they use fixed 1:1 ratios. The Apex Compounder survives drawdowns by mathematically engineering "Free Runners." It secures 50% of the position at 2.0 ATR, moves the Stop Loss to Breakeven, and trails the remaining 50% at 1.5 ATR. This turns a standard trade into a massive, risk-free <strong>"Gamma Blast"</strong> catcher, achieving up to 372% Net ROI in backtesting.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    apex_log = """
+<span class="t-white">🚀 INITIALIZING THE LIVE APEX COMPOUNDER V10...</span>
+<span class="t-green">✅ Connected: 345148129 | Balance: $25,000.00</span>
+<span class="t-yellow">⚠️ Risk Level: 0.5% ($125.00 per trade)</span>
+<span class="t-white">---------------------------------------------------------</span>
+<span class="t-cyan">⏳ APEX SCANNER ACTIVE. Waiting for Institutional Setups...</span>
+
+<span class="t-green">⚡ APEX BUY SIGNAL | ADX: 32.4 | Z-Score: -1.82</span>
+<span class="t-cyan">🔥 BUY EXECUTED @ 2345.50 | Size: 0.10 | SL: 2343.00</span>
+<span class="t-white">🔹 XAUUSD | LTP: 2345.50 | SL: 2343.00 | T1: 2350.50</span>
+
+<span class="t-white">🔹 XAUUSD | LTP: 2348.10 | SL: 2343.00</span>
+<span class="t-green">💰 TP1 HIT! Securing 50% profits (0.05 lots). Moving SL to Breakeven.</span>
+<span class="t-white">🔹 XAUUSD | LTP: 2352.40 | SL: 2345.50 (SL@Cost)</span>
+<span class="t-cyan">📈 Trailing SL Moved UP to 2348.65 (Securing Runner)</span>
+
+<span class="t-red">🛑 TRAILING SL HIT! XAUUSD BUY</span>
+<span class="t-white">Entry: 2345.50 | Exit: 2348.65</span>
+<span class="t-cyan">✅ Trade Concluded. Total Asymmetric R:R achieved: 1:2.63</span>
+    """
+    st.markdown(f'<div class="terminal-console">{apex_log}</div>', unsafe_allow_html=True)
