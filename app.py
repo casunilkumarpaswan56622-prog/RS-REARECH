@@ -84,44 +84,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 🔐 SECURE CLIENT AUTHENTICATION (7-DAY PASS)
-# ==========================================
-if 'logged_in' not in st.session_state:
-    st.session_state.logged_in = False
-    st.session_state.license_expiry = None
-
-def login():
-    st.session_state.logged_in = True
-    st.session_state.license_expiry = datetime.now() + timedelta(days=7)
-
-if not st.session_state.logged_in:
-    col1, col2, col3 = st.columns([1, 1.5, 1])
-    with col2:
-        st.markdown("<br><br><br>", unsafe_allow_html=True)
-        st.markdown('<div class="glass-card" style="text-align: center;">', unsafe_allow_html=True)
-        st.markdown('<p class="title-gradient" style="font-size: 28px;">CA SUNIL KUMAR PASWAN</p>', unsafe_allow_html=True)
-        st.markdown("<p style='color:#94A3B8;'>Institutional Quantitative Architecture | Secure Client Portal</p>", unsafe_allow_html=True)
-        
-        with st.form("auth"):
-            email = st.text_input("Corporate Email Address")
-            phone = st.text_input("Registered Mobile Number")
-            st.caption("Access strictly monitored. 7-Day Trial License issued upon verification.")
-            submit = st.form_submit_button("Authenticate & Enter Black Box")
-            if submit and email and phone:
-                login()
-                st.rerun()
-            elif submit:
-                st.error("Invalid credentials.")
-        st.markdown('</div>', unsafe_allow_html=True)
-    st.stop()
-
-# ==========================================
 # 🧭 SINGLE ROBUST NAVIGATION SYSTEM
 # ==========================================
 with st.sidebar:
     st.markdown(f"### 🏦 CA Sunil Kr Paswan")
     st.caption("Chief Quantitative Architect")
-    st.markdown(f"**License Valid Until:**<br><span style='color:#10B981'>{st.session_state.license_expiry.strftime('%d %b %Y')}</span>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("### 📊 HISTORICAL PROOFS")
@@ -134,6 +101,37 @@ with st.sidebar:
         "6. Apex Compounder XAUUSD [LIVE]",
         "7. XM Bonus Incubator [LIVE]"
     ], label_visibility="collapsed")
+
+# ==========================================
+# 🔐 SECURE CLIENT AUTHENTICATION (FOR LIVE LOGS)
+# ==========================================
+def requires_auth():
+    if 'logged_in' not in st.session_state:
+        st.session_state.logged_in = False
+        st.session_state.license_expiry = None
+
+    if not st.session_state.logged_in:
+        col1, col2, col3 = st.columns([1, 1.5, 1])
+        with col2:
+            st.markdown("<br><br><br>", unsafe_allow_html=True)
+            st.markdown('<div class="glass-card" style="text-align: center;">', unsafe_allow_html=True)
+            st.markdown('<p class="title-gradient" style="font-size: 28px;">LIVE TERMINAL ACCESS</p>', unsafe_allow_html=True)
+            st.markdown("<p style='color:#94A3B8;'>Authentication Required for Live Execution Telemetry</p>", unsafe_allow_html=True)
+            
+            with st.form("auth"):
+                email = st.text_input("Corporate Email Address")
+                phone = st.text_input("Registered Mobile Number")
+                st.caption("Access strictly monitored. 7-Day Trial License issued upon verification.")
+                submit = st.form_submit_button("Authenticate & Enter Black Box")
+                if submit and email and phone:
+                    st.session_state.logged_in = True
+                    st.session_state.license_expiry = datetime.now() + timedelta(days=7)
+                    st.rerun()
+                elif submit:
+                    st.error("Invalid credentials. Please fill all fields.")
+            st.markdown('</div>', unsafe_allow_html=True)
+        return False
+    return True
 
 # ==============================================================================
 # 📊 MODULE 1: NIFTY 50 INTRADAY MATRIX
@@ -226,10 +224,11 @@ elif nav_selection == "3. Holistic Options & Risk Model":
 # 🔴 MODULE 4: V21.4 PRECISION SNIPER (LIVE)
 # ==============================================================================
 elif nav_selection == "4. V21.4 Precision Sniper [LIVE]":
-    st.markdown('<p class="title-gradient">V21.4 Precision Sniper Engine</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">Real-Time Indian Indices Execution Node. (Python Backend Masked)</p>', unsafe_allow_html=True)
+    if requires_auth():
+        st.markdown('<p class="title-gradient">V21.4 Precision Sniper Engine</p>', unsafe_allow_html=True)
+        st.markdown('<p class="subtitle">Real-Time Indian Indices Execution Node. (Python Backend Masked)</p>', unsafe_allow_html=True)
 
-    v21_log = """
+        v21_log = """
 <span class="t-cyan">🚀 v21.4 Precision Sniper Online. Press Ctrl+C to terminate.</span>
 <span class="t-white">🔒 Account: 1107618621 | Threshold: 70% | Supertrend: 10×3.0 | Anti-Whipsaw: 1 bars</span>
 <span class="t-green">[09:26:09] 🟢 LIVE — v21.4 running.</span>
@@ -258,22 +257,23 @@ elif nav_selection == "4. V21.4 Precision Sniper [LIVE]":
 <span class="t-green">🎯 TARGET 2 HIT! BANKNIFTY PE | Entry: ₹324.00 | Exit: ₹398.50</span>
 <span class="t-green">💰 Net Gain: ₹74.50/qty</span>
 <span class="t-cyan">✅ Forward-Test Log Closed. Updating trade_journal_v21_4.csv</span>
-    """
-    st.markdown(f'<div class="terminal-console">{v21_log}</div>', unsafe_allow_html=True)
+        """
+        st.markdown(f'<div class="terminal-console">{v21_log}</div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # 🔴 MODULE 5: TITAN V6.0 STAT-ARB (LIVE)
 # ==============================================================================
 elif nav_selection == "5. Titan V6.0 Stat-Arb [LIVE]":
-    st.markdown('<p class="title-gradient">Titan V6.0 Statistical Arbitrage</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">Market-Neutral Z-Score Spreads via Bybit Unified Margin.</p>', unsafe_allow_html=True)
+    if requires_auth():
+        st.markdown('<p class="title-gradient">Titan V6.0 Statistical Arbitrage</p>', unsafe_allow_html=True)
+        st.markdown('<p class="subtitle">Market-Neutral Z-Score Spreads via Bybit Unified Margin.</p>', unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3)
-    with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">SOL/LINK</div><div class="metric-label">Active Cointegration Pair</div></div>', unsafe_allow_html=True)
-    with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">2.5σ</div><div class="metric-label">Execution Z-Score</div></div>', unsafe_allow_html=True)
-    with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">10x</div><div class="metric-label">Linear Leverage</div></div>', unsafe_allow_html=True)
+        c1, c2, c3 = st.columns(3)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">SOL/LINK</div><div class="metric-label">Active Cointegration Pair</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">2.5σ</div><div class="metric-label">Execution Z-Score</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">10x</div><div class="metric-label">Linear Leverage</div></div>', unsafe_allow_html=True)
 
-    titan_log = """
+        titan_log = """
 <span class="t-white">--- 🏛️ TITAN V6: INSTITUTIONAL MAKER EDITION ---</span>
 <span class="t-white">  🎯 Target: SOLUSDT / LINKUSDT</span>
 <span class="t-white">  🛡️ Risk: 5% Size | 4.0 Stop | 0.2 Exit (Prop Firm Safe)</span>
@@ -297,26 +297,27 @@ elif nav_selection == "5. Titan V6.0 Stat-Arb [LIVE]":
 <span class="t-cyan">🛑 CLOSING ALL POSITIONS (PROFIT)...</span>
 <span class="t-green">✅ CLOSED via Iceberg Chunker.</span>
 <span class="t-white">⏳ Cooldown activated for 1 HOUR. Letting the spread reset.</span>
-    """
-    st.markdown(f'<div class="terminal-console">{titan_log}</div>', unsafe_allow_html=True)
+        """
+        st.markdown(f'<div class="terminal-console">{titan_log}</div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # 🔴 MODULE 6: APEX COMPOUNDER XAUUSD
 # ==============================================================================
 elif nav_selection == "6. Apex Compounder XAUUSD [LIVE]":
-    st.markdown('<p class="title-gradient">The XAUUSD Apex Compounder V10</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">Prop-Firm Asymmetric Runner | 10x Scale-Up Engine | MT5 Integration.</p>', unsafe_allow_html=True)
+    if requires_auth():
+        st.markdown('<p class="title-gradient">The XAUUSD Apex Compounder V10</p>', unsafe_allow_html=True)
+        st.markdown('<p class="subtitle">Prop-Firm Asymmetric Runner | 10x Scale-Up Engine | MT5 Integration.</p>', unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="glass-card" style="border-left: 4px solid #FACC15;">
-        <h4 style="color:#FACC15; margin-top:0;">1-Year Road to 10x ($25,000 to $118,233)</h4>
-        <p style="color:#94A3B8; font-size: 14px;">
-        Most algorithms fail because they use fixed 1:1 ratios. The Apex Compounder survives drawdowns by engineering "Free Runners." It secures 50% of the position at 2.0 ATR, moves SL to Breakeven, and trails the remaining 50% at 1.5 ATR. <strong>Kamikaze Risk applied: 5.0% of balance per trade.</strong>
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="glass-card" style="border-left: 4px solid #FACC15;">
+            <h4 style="color:#FACC15; margin-top:0;">1-Year Road to 10x ($25,000 to $118,233)</h4>
+            <p style="color:#94A3B8; font-size: 14px;">
+            Most algorithms fail because they use fixed 1:1 ratios. The Apex Compounder survives drawdowns by engineering "Free Runners." It secures 50% of the position at 2.0 ATR, moves SL to Breakeven, and trails the remaining 50% at 1.5 ATR. <strong>Kamikaze Risk applied: 5.0% of balance per trade.</strong>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    apex_log = """
+        apex_log = """
 <span class="t-white">🚀 INITIALIZING THE LIVE APEX COMPOUNDER V10 (MAXIMUM LEVERAGE)...</span>
 <span class="t-green">✅ Connected: 345148129 | Balance: $25,000.00</span>
 <span class="t-yellow">⚠️ Risk Level: 5.0% ($1,250.00 per trade)</span>
@@ -336,22 +337,23 @@ elif nav_selection == "6. Apex Compounder XAUUSD [LIVE]":
 <span class="t-white">Entry: 2345.50 | Exit: 2348.65</span>
 <span class="t-cyan">✅ Trade Concluded. Total Asymmetric R:R achieved: 1:2.63</span>
 <span class="t-green">✅ New Balance: $26,185.40</span>
-    """
-    st.markdown(f'<div class="terminal-console">{apex_log}</div>', unsafe_allow_html=True)
+        """
+        st.markdown(f'<div class="terminal-console">{apex_log}</div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # 🔴 MODULE 7: XM BONUS INCUBATOR
 # ==============================================================================
 elif nav_selection == "7. XM Bonus Incubator [LIVE]":
-    st.markdown('<p class="title-gradient">XM Bonus Compounder</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">The $500 Incubator: Converting Non-Withdrawable Credit to Real Cash.</p>', unsafe_allow_html=True)
+    if requires_auth():
+        st.markdown('<p class="title-gradient">XM Bonus Compounder</p>', unsafe_allow_html=True)
+        st.markdown('<p class="subtitle">The $500 Incubator: Converting Non-Withdrawable Credit to Real Cash.</p>', unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3)
-    with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">$500 + $250</div><div class="metric-label">Cash + Bonus Credit</div></div>', unsafe_allow_html=True)
-    with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">559.43%</div><div class="metric-label">Return on Deposit</div></div>', unsafe_allow_html=True)
-    with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">$3,297.14</div><div class="metric-label">Final Real Cash</div></div>', unsafe_allow_html=True)
+        c1, c2, c3 = st.columns(3)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">$500 + $250</div><div class="metric-label">Cash + Bonus Credit</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">559.43%</div><div class="metric-label">Return on Deposit</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">$3,297.14</div><div class="metric-label">Final Real Cash</div></div>', unsafe_allow_html=True)
 
-    xm_log = """
+        xm_log = """
 <span class="t-white">🚀 INITIALIZING XM BONUS BACKTESTER ($500 Cash + $250 Credit)...</span>
 <span class="t-yellow">===========================================================================</span>
 <span class="t-yellow">🔥 XM BONUS COMPOUNDER: THE $500 INCUBATOR</span>
@@ -374,5 +376,5 @@ elif nav_selection == "7. XM Bonus Incubator [LIVE]":
 <span class="t-green">Return on Deposit:  559.43%</span>
 <span class="t-red">Max Drawdown:       23.88%</span>
 <span class="t-white">Total Trades:       51</span>
-    """
-    st.markdown(f'<div class="terminal-console">{xm_log}</div>', unsafe_allow_html=True)
+        """
+        st.markdown(f'<div class="terminal-console">{xm_log}</div>', unsafe_allow_html=True)
