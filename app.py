@@ -29,7 +29,7 @@ st.markdown("""
         background: linear-gradient(90deg, #D4AF37 0%, #FACC15 50%, #F59E0B 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 42px;
+        font-size: 38px;
         font-weight: 800;
         letter-spacing: -1.0px;
         margin-bottom: 0px;
@@ -53,7 +53,7 @@ st.markdown("""
     }
     .glass-card:hover { border-color: #D4AF37; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.05); }
     
-    .metric-value { font-size: 32px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+    .metric-value { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
     .metric-green { color: #10B981; }
     .metric-gold { color: #FACC15; }
     .metric-blue { color: #38BDF8; }
@@ -70,7 +70,7 @@ st.markdown("""
         color: #E2E8F0;
         font-size: 12px;
         line-height: 1.6;
-        height: 450px;
+        height: 350px;
         overflow-y: auto;
         box-shadow: inset 0 0 20px rgba(0,0,0,1);
     }
@@ -118,12 +118,11 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 # ==========================================
-# 🔐 SECURE CLIENT AUTHENTICATION (FOR LIVE LOGS)
+# 🔐 SECURE CLIENT AUTHENTICATION
 # ==========================================
 def requires_auth():
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
-        st.session_state.license_expiry = None
 
     if not st.session_state.logged_in:
         col1, col2, col3 = st.columns([1, 1.5, 1])
@@ -140,7 +139,6 @@ def requires_auth():
                 submit = st.form_submit_button("Authenticate")
                 if submit and email and phone:
                     st.session_state.logged_in = True
-                    st.session_state.license_expiry = datetime.now() + timedelta(days=7)
                     st.rerun()
                 elif submit:
                     st.error("Invalid credentials. Please fill all fields.")
@@ -153,92 +151,109 @@ def requires_auth():
 # ==============================================================================
 if nav_selection == "1. INDIAN MARKET (Equities & Options)":
     st.markdown('<p class="title-gradient">Indian Indices & High-Beta Equities</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">Proprietary Options Engines | NIFTY 50 & NIFTY 100 Scanners</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Proprietary Options Engines | NIFTY 50 & NIFTY 100 Institutional Scanners</p>', unsafe_allow_html=True)
     
-    # Data Quantum Callout
-    st.info("📊 **Data Quantum Analyzed:** Over 191,380 Spot Candlestick Rows and 380,996 Options Data Rows processed. Backtesting horizon covers December 2023 to December 2025 across 1-minute and 5-minute timeframes.", icon="📈")
+    st.info("📊 **Quantum of Data Analyzed:** Extensive computational backtesting incorporating **191,380 Spot Candlestick Rows** and **380,996 Options Data Rows** covering December 2023 to December 2025. Over 106 individual NIFTY 100 equities parsed across 1-min & 5-min intervals.", icon="📈")
 
-    c1, c2, c3, c4 = st.columns(4)
-    with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">88.97%</div><div class="metric-label">Peak Setup Win Rate</div></div>', unsafe_allow_html=True)
-    with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">104.9%</div><div class="metric-label">Max Straddle ROI</div></div>', unsafe_allow_html=True)
-    with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">0.0017</div><div class="metric-label">Base Sharpe Ratio</div></div>', unsafe_allow_html=True)
-    with c4: st.markdown('<div class="glass-card"><div class="metric-value metric-red">69.2%</div><div class="metric-label">Pre-Expiry Win Rate</div></div>', unsafe_allow_html=True)
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "2-Year Intraday Matrix", 
+        "High-Conviction Options", 
+        "Straddle Extraction Engine",
+        "Live Execution Scanner"
+    ])
 
-    colA, colB = st.columns([1, 1])
-    with colA:
-        st.markdown("#### ⏱️ Optimal Execution Windows")
-        time_data = pd.DataFrame({
-            "Market Phase": ["Morning Edge (9:15-10:30)", "Consolidation (12:00-14:00)", "BTST Setup (15:15+)"],
-            "Algorithmic Win Rate": [65.0, 45.0, 81.4],
-        })
-        fig = px.bar(time_data, x="Market Phase", y="Algorithmic Win Rate", color="Algorithmic Win Rate", color_continuous_scale="RdYlGn")
-        fig.update_layout(template="plotly_dark", plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
-        fig.add_hline(y=50, line_dash="dash", line_color="white")
-        st.plotly_chart(fig, use_container_width=True)
-
-    with colB:
+    with tab1:
+        st.markdown("### Nifty 2-Year Intraday Comprehensive Analysis")
+        c1, c2, c3, c4 = st.columns(4)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">88.97%</div><div class="metric-label">BB+Low IV Win Rate</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">81.41%</div><div class="metric-label">PCR Contarian Win Rate</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">1.46</div><div class="metric-label">Sharpe Ratio (Top Setup)</div></div>', unsafe_allow_html=True)
+        with c4: st.markdown('<div class="glass-card"><div class="metric-value metric-white">2,143.94</div><div class="metric-label">Monte Carlo Mean PnL</div></div>', unsafe_allow_html=True)
+        
         st.markdown("""
-        <div class="glass-card">
-            <h4 style="color:#D4AF37;">Core Institutional Framework (Masked Logic)</h4>
-            <p style="color:#94A3B8; font-size: 14px;">
-            The algorithms utilize multi-layered institutional footprint tracking without relying on standard retail lagging indicators.<br><br>
-            <ul>
-                <li><b>Volatility Squeeze Extraction:</b> Proprietary variance filters identify anomalous compressions in high-beta stocks (e.g., Energy/Infra sector) prior to explosive directional moves.</li>
-                <li><b>Contrarian Options Flow:</b> Utilizes dynamic PCR (Put-Call Ratio) divergence thresholds alongside rolling IV (Implied Volatility) percentiles to trade against retail sentiment.</li>
-                <li><b>The BTST Edge:</b> Structural market analysis shows overnight gaps in selected equities mathematically outpace theta decay when strictly executed under specific algorithmic conditions.</li>
-            </ul>
-            <i>Note: Exact indicator lengths, thresholds, and ML-assisted scoring parameters are strictly confidential black-box IP.</i>
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        **Strategy Logic (Obfuscated):** 
+        Multi-setup architecture running concurrently. It exploits option mispricings using **Bollinger Band Squeeze Breakouts combined with Low Implied Volatility (IV) Percentiles**. A secondary engine acts as a contrarian trap, buying Puts when the PCR (Put-Call Ratio) drops below extreme institutional levels, and buying Calls when retail fear peaks (PCR > 1.2).
+        """)
+
+    with tab2:
+        st.markdown("### 5-Minute Nifty 100 Options Buying")
+        c1, c2, c3 = st.columns(3)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">104.94%</div><div class="metric-label">Total Return (Top Stock)</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">31.7%</div><div class="metric-label">Win Rate (Asymmetric RR)</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">605</div><div class="metric-label">Total Valid Setups</div></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        **Strategy Logic (Obfuscated):** 
+        Filters out 95% of market noise to isolate institutional momentum. Uses 5 setup variants including **VWAP Breakouts**, **Volume Surges (>3x avg)**, and **Hidden RSI Divergences**. Employs fixed holding periods of 3 to 15 candles to outrun Theta decay. The 31.7% win rate is mathematically offset by massive capped asymmetric upside (up to +500% premium spikes).
+        """)
+        
+    with tab3:
+        st.markdown("### Institutional Straddle Edge & ORB-50")
+        c1, c2, c3 = st.columns(3)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">69.2%</div><div class="metric-label">Pre-Expiry Straddle Win Rate</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">₹76.9k</div><div class="metric-label">BTST Contribution</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">1.005</div><div class="metric-label">Profit Factor (Unleveraged)</div></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        **Strategy Logic (Obfuscated):** 
+        Retail loses on straddles due to linear Theta decay. This engine only enters straddles on **Macro Volume Spikes (>1.7x)** during extreme consolidation. The analysis reveals a distinct **BTST (Buy Today, Sell Tomorrow) dominance** over morning execution, exploiting overnight gap risk in high-beta counters like ADANIENSOL and SHRIRAMFIN.
+        """)
+
+    with tab4:
+        st.markdown("### Intraday Signal Generators (Live Telemetry)")
+        st.markdown("""
+        **Active Modules:** NIFTY 50 SMA/RSI Algo & NIFTY 100 Option Scanner.
+        Scans thousands of 1-minute and 5-minute ticks live. Uses an advanced scoring matrix tracking ADX momentum, RVOL (Relative Volume), and ATR expansion to generate pre-calculated entry vectors for execution systems.
+        """)
+        if requires_auth():
+            v21_log = """
+<span class="t-cyan">🚀 Precision Sniper Scanner Online...</span>
+<span class="t-white">📍 NIFTY 50 | MTF Consensus: BEARISH | VWAP: -0.57%</span>
+<span class="t-white">📉 PCR: 1.25 [BEARISH] — Put buying in high VIX detected.</span>
+<span class="t-green">🎯 FINAL INTEGRATED SCORE: 71% (Required: 65%)</span>
+<span class="t-yellow">💼 Logged SIGNAL: Buy PE | Target R:R 1:2.5</span>
+            """
+            st.markdown(f'<div class="terminal-console">{v21_log}</div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # 🔴 MODULE 2: CRYPTO CURRENCY (STAT-ARB)
 # ==============================================================================
 elif nav_selection == "2. CRYPTO CURRENCY (Stat-Arb)":
-    if requires_auth():
-        st.markdown('<p class="title-gradient">Titan Stat-Arb Cryptocurrency Engine</p>', unsafe_allow_html=True)
-        st.markdown('<p class="subtitle">Market-Neutral Z-Score Spreads via Unified Margin APIs</p>', unsafe_allow_html=True)
-        
-        st.info("📊 **Data Quantum Analyzed:** Rolling multi-day lookbacks generating continuous statistical evaluation of perpetual futures. Live integration executed over 60-minute interval chunks via REST/WebSocket.", icon="📈")
+    st.markdown('<p class="title-gradient">Titan Stat-Arb Cryptocurrency Engine</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Market-Neutral Z-Score Spreads via Unified Margin APIs</p>', unsafe_allow_html=True)
+    
+    st.info("📊 **Quantum of Data Analyzed:** High-frequency ingestion of 60-minute perpetual futures candles via WebSocket & REST. Evaluates rolling 168-bar (7-day) and 40-bar (1.67-day) lookback windows to compute real-time statistical deviations.", icon="📈")
 
+    tab1, tab2 = st.tabs(["TITAN V6 (Advanced Stat-Arb)", "TITAN V1 (Simplified Risk Edition)"])
+
+    with tab1:
+        st.markdown("### TITAN V6: ADA/XRP Pairs Trade with ARIMA Veto")
         c1, c2, c3 = st.columns(3)
-        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">SOL/LINK</div><div class="metric-label">Active Cointegration Pair</div></div>', unsafe_allow_html=True)
-        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">Dynamic</div><div class="metric-label">Adaptive Z-Score Triggers</div></div>', unsafe_allow_html=True)
-        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">10x</div><div class="metric-label">Linear Leverage</div></div>', unsafe_allow_html=True)
-
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">±2.5σ</div><div class="metric-label">Z-Score Entry Threshold</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-red">±3.5σ</div><div class="metric-label">Circuit Breaker (Stop)</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">30%</div><div class="metric-label">Notional Exposure (Max)</div></div>', unsafe_allow_html=True)
+        
         st.markdown("""
-        <div class="glass-card">
-            <h4 style="color:#D4AF37;">Statistical Arbitrage Methodology</h4>
-            <p style="color:#94A3B8; font-size: 14px;">
-            The Titan series leverages pairs trading based on cointegration. By calculating the standard deviation of the spread between two historically correlated assets (e.g., ADA/XRP or SOL/LINK), the bot shorts the outperforming asset and goes long on the underperforming asset when statistical divergence occurs. <b>Logic is augmented with proprietary macroeconomic trend vetoes to avoid trending deviations.</b>
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
+        **Strategy Logic (Obfuscated):**
+        Tracks the spread ratio between highly correlated assets (e.g., ADA/XRP). Enters a market-neutral long/short position when the 168-bar Z-Score exceeds 2.5 standard deviations. 
+        **Institutional Edge:** Integrates a predictive **ARIMA(1,0,1) Veto Model**. The engine forecasts the next 3 bars; if the model predicts the divergence will *continue* trending rather than reverting, the trade is vetoed to prevent drawdown. Executes via Iceberg Limit-Maker chunks to eliminate taker fees.
+        """)
+        
+    with tab2:
+        st.markdown("### TITAN SOL/LINK: Fast Mean-Reversion")
+        st.markdown("""
+        **Strategy Logic (Obfuscated):**
+        A higher-frequency variant utilizing a shorter 40-bar lookback window. Triggers at |Z| > 2.0 and strictly scales out when the spread reverts to |Z| < 0.2. Risk is hard-capped at 5% equity per trade utilizing 10x linear leverage.
+        """)
+        
+    if requires_auth():
         titan_log = """
-<span class="t-white">--- 🏛️ TITAN V6: INSTITUTIONAL MAKER EDITION ---</span>
-<span class="t-white">  🎯 Target Pool: SOLUSDT / LINKUSDT / ADAUSDT / XRPUSDT</span>
-<span class="t-white">  🛡️ Risk Protocol: Strict Circuit Breakers Active</span>
-
-<span class="t-cyan">📡 SYNCING EXCHANGE CLOCKS...</span>
-<span class="t-green">✅ TIME SYNCED. Drift: -0.02s</span>
-<span class="t-cyan">📡 INITIALIZING LIVE SESSION...</span>
-
-<span class="t-cyan">📡 MONITORING MARKET VOLATILITY SPREADS...</span>
-<span class="t-white">⏳ 14:02:11 | Z-Spread Divergence: [MASKED] | Status: MONITORING</span>
-<span class="t-white">⏳ 14:02:21 | Z-Spread Divergence: [MASKED] | Status: ESCALATING</span>
-
-<span class="t-green">📈 PROPRIETARY SIGNAL TRIGGERED: Cross-Asset Divergence Detected.</span>
-<span class="t-cyan">🚀 SIGNAL FIRED: Initiating Market Neutral Hedge</span>
-<span class="t-green">✅ [Asset A] Fill Success (LimitMaker Post-Only).</span>
-<span class="t-green">✅ [Asset B] Fill Success (LimitMaker Post-Only).</span>
-
-<span class="t-white">⏳ 14:15:30 | Spread Mean-Reverting...</span>
-<span class="t-green">🎯 TARGET REACHED. Mean Reversion Complete.</span>
-<span class="t-cyan">🛑 CLOSING ALL POSITIONS VIA ICEBERG CHUNKER...</span>
-<span class="t-green">✅ LIQUIDITY SECURED. Net Profit Extracted.</span>
-<span class="t-white">⏳ Cooldown activated. Letting the spread mathematical bounds reset.</span>
+<span class="t-cyan">📡 TITAN V6 SYNCING CLOCKS...</span>
+<span class="t-green">✅ TIME SYNCED. Drift: -0.04s</span>
+<span class="t-white">⏳ 14:02:11 | Spread Z-Score: 2.105 | Status: ESCALATING</span>
+<span class="t-green">📈 SIGNAL [Z: 2.105]: ARIMA Veto Passed. Spread Reversion Probable.</span>
+<span class="t-cyan">🚀 SIGNAL FIRED: Short SOL, Long LINK.</span>
+<span class="t-green">✅ Maker Orders Filled. Market Neutral Status Achieved.</span>
         """
         st.markdown(f'<div class="terminal-console">{titan_log}</div>', unsafe_allow_html=True)
 
@@ -246,49 +261,60 @@ elif nav_selection == "2. CRYPTO CURRENCY (Stat-Arb)":
 # 🔴 MODULE 3: FOREX (XAUUSD PROP FIRM)
 # ==============================================================================
 elif nav_selection == "3. FOREX (XAUUSD Prop Firm)":
-    if requires_auth():
-        st.markdown('<p class="title-gradient">Apex Compounder & Gold Miner Pro (XAUUSD)</p>', unsafe_allow_html=True)
-        st.markdown('<p class="subtitle">Prop-Firm Asymmetric Runner | MT5 Integration Architecture</p>', unsafe_allow_html=True)
-        
-        st.info("📊 **Data Quantum Analyzed:** Simulated chronological testing over 1-2 years of H1 (Hourly) XAUUSD MT5 Data. Over 8,760 hourly bars processed annually to validate stress test parameters against Prop Firm limits.", icon="📈")
+    st.markdown('<p class="title-gradient">Apex Compounder & Gold Miner Pro (XAUUSD)</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Prop-Firm Asymmetric Runner | MT5 Integration Architecture</p>', unsafe_allow_html=True)
+    
+    st.info("📊 **Quantum of Data Analyzed:** Simulated chronological stress testing over 1 to 2 years of MT5 historical H1 (Hourly) data. Over **8,760 hourly data points processed annually**, testing across normal and high-impact macroeconomic event volatility.", icon="📈")
 
+    tab1, tab2, tab3 = st.tabs(["Z-Score Sniper V6", "Apex Compounder V10", "XM Bonus Incubator"])
+
+    with tab1:
+        st.markdown("### Funded Scaler: Institutional Z-Score Setup")
         c1, c2, c3 = st.columns(3)
-        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">+21.9%</div><div class="metric-label">1-Year Base Net ROI</div></div>', unsafe_allow_html=True)
-        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">100%</div><div class="metric-label">Prop Firm Pass Rate (Sim)</div></div>', unsafe_allow_html=True)
-        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-red">3.59%</div><div class="metric-label">Maximum Drawdown</div></div>', unsafe_allow_html=True)
-
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">+21.90%</div><div class="metric-label">1-Yr Total Net ROI</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">3.59%</div><div class="metric-label">Maximum Drawdown</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">100%</div><div class="metric-label">Prop Firm Pass Prob.</div></div>', unsafe_allow_html=True)
+        
         st.markdown("""
-        <div class="glass-card" style="border-left: 4px solid #FACC15;">
-            <h4 style="color:#FACC15; margin-top:0;">Asymmetric Risk Management & Trade Scaling</h4>
-            <p style="color:#94A3B8; font-size: 14px;">
-            The Gold Miner Pro algorithm does not rely on single-target exits. It uses a <b>Proprietary Dynamic Scale-Out Engine</b> designed explicitly to survive rigid Prop Firm drawdown rules.<br><br>
-            <b>Mechanics (Obfuscated):</b><br>
-            • Entry triggered by multi-timeframe structural exhaustion and proprietary variance models.<br>
-            • The algorithm aggressively secures a partial position at an initial threshold, instantly mathematically eliminating risk by adjusting the trailing stop to breakeven.<br>
-            • The remainder of the position acts as a "Free Runner", trailing strictly behind dynamic volatility bands to catch macro-level economic expansions.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        **Strategy Logic (Obfuscated):**
+        Utilizes a Macro Trend Filter (e.g., EMA200) to establish directional bias. Enters on extreme oversold/overbought dips using H1 Z-Scores during the NY Power Hours (13:00–18:00 UTC). Risk is kept defensively low at 0.5% per trade. Employs a dynamic ATR-based SL/TP mechanism with instant breakeven trailing.
+        """)
 
+    with tab2:
+        st.markdown("### Apex Compounder V10 (High Risk/Kamikaze Engine)")
+        c1, c2, c3 = st.columns(3)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">+372.93%</div><div class="metric-label">Aggressive ROI</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-red">23.88%</div><div class="metric-label">Maximum Drawdown</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">4.73x</div><div class="metric-label">Capital Multiple</div></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        **Strategy Logic (Obfuscated):**
+        The exact same robust mathematical entry parameters as V6, but re-engineered for personal capital scaling rather than Prop Firm limits. Risks 5% per trade. Generates massive returns by utilizing an **Asymmetric Scaling Engine**: Secures 50% at TP1 to neutralize risk, and trails the remaining lot with loose ATR bounds to catch violent macro gold runs.
+        """)
+
+    with tab3:
+        st.markdown("### The XM Bonus Incubator (Micro-Capital Scaling)")
+        c1, c2, c3 = st.columns(3)
+        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">559.4%</div><div class="metric-label">Return on Deposit</div></div>', unsafe_allow_html=True)
+        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">$3,297.14</div><div class="metric-label">Final Real Cash</div></div>', unsafe_allow_html=True)
+        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-white">51</div><div class="metric-label">Total Trades</div></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        **Objective:** To systematically convert non-withdrawable broker bonus credit into real withdrawable cash.
+        **Backtest Results:** Started with $500 Real Cash + $250 Credit. Over the simulated curve, the engine withstood a max drawdown of 23.88% (absorbing the hit into the credit buffer) and geometrically compounded the base capital out to over $3,200 of liquid capital.
+        """)
+
+    if requires_auth():
         apex_log = """
-<span class="t-white">🚀 INITIALIZING XAUUSD PROP-FIRM APEX ENGINE (MT5 BRIDGE)...</span>
+<span class="t-white">🚀 INITIALIZING XAUUSD APEX ENGINE (MT5 BRIDGE)...</span>
 <span class="t-green">✅ MT5 Connected | Target: XAUUSD | Base: $25,000.00</span>
-<span class="t-yellow">⚠️ Risk Protocol: Prop-Firm Safe (0.5% - 5.0% Dynamic Allocation)</span>
 <span class="t-white">---------------------------------------------------------</span>
-<span class="t-cyan">⏳ APEX SCANNER ACTIVE. Waiting for Institutional Volatility Signatures...</span>
-
-<span class="t-green">⚡ PROP SIGNAL GENERATED | Structure: [MASKED] | Volatility: [MASKED]</span>
-<span class="t-cyan">🔥 EXECUTION: LONG XAUUSD | Size Calculated dynamically</span>
-<span class="t-white">🔹 XAUUSD | T1: Primary Securitization Target | SL: Algorithmic Low</span>
-
+<span class="t-green">⚡ PROP SIGNAL GENERATED | Structure: [MASKED] </span>
+<span class="t-cyan">🔥 EXECUTION: LONG XAUUSD | SL: Algorithmic Low</span>
 <span class="t-green">💰 T1 BREACHED! Securing 50% lot size.</span>
 <span class="t-cyan">📈 SYSTEM ACTION: SL modified to Breakeven. Risk profile = 0.00%</span>
-
-<span class="t-white">🔹 XAUUSD Trailing Engine Active. Following market structure.</span>
 <span class="t-cyan">📈 Trailing SL Moved UP (Locking structural profit)</span>
-
 <span class="t-red">🛑 DYNAMIC TRAILING SL TRIGGERED | Position Cleared</span>
 <span class="t-cyan">✅ Trade Concluded. Asymmetric Reward Profile Successfully Achieved.</span>
-<span class="t-green">✅ Equity Protected. Updating Metrics Dashboard.</span>
         """
         st.markdown(f'<div class="terminal-console">{apex_log}</div>', unsafe_allow_html=True)
