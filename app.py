@@ -105,8 +105,7 @@ with st.sidebar:
     st.markdown("### 📊 QUANTITATIVE PORTFOLIOS")
     nav_selection = st.radio("Select Market Domain:", [
         "1. INDIAN MARKET (Equities & Options)",
-        "2. CRYPTO CURRENCY (Stat-Arb)",
-        "3. FOREX (XAUUSD Prop Firm)"
+        "2. CRYPTO CURRENCY (Stat-Arb)"
     ], label_visibility="collapsed")
     
     st.divider()
@@ -171,8 +170,7 @@ if nav_selection == "1. INDIAN MARKET (Equities & Options)":
         with c4: st.markdown('<div class="glass-card"><div class="metric-value metric-white">2,143.94</div><div class="metric-label">Monte Carlo Mean PnL</div></div>', unsafe_allow_html=True)
         
         st.markdown("""
-        **Strategy Logic (Obfuscated):** 
-        Multi-setup architecture running concurrently. It exploits option mispricings using **Bollinger Band Squeeze Breakouts combined with Low Implied Volatility (IV) Percentiles**. A secondary engine acts as a contrarian trap, buying Puts when the PCR (Put-Call Ratio) drops below extreme institutional levels, and buying Calls when retail fear peaks (PCR > 1.2).
+        **Strategy Logic (Obfuscated):** Multi-setup architecture running concurrently. It exploits option mispricings using **Bollinger Band Squeeze Breakouts combined with Low Implied Volatility (IV) Percentiles**. A secondary engine acts as a contrarian trap, buying Puts when the PCR (Put-Call Ratio) drops below extreme institutional levels, and buying Calls when retail fear peaks (PCR > 1.2).
         """)
 
     with tab2:
@@ -183,8 +181,7 @@ if nav_selection == "1. INDIAN MARKET (Equities & Options)":
         with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">605</div><div class="metric-label">Total Valid Setups</div></div>', unsafe_allow_html=True)
         
         st.markdown("""
-        **Strategy Logic (Obfuscated):** 
-        Filters out 95% of market noise to isolate institutional momentum. Uses 5 setup variants including **VWAP Breakouts**, **Volume Surges (>3x avg)**, and **Hidden RSI Divergences**. Employs fixed holding periods of 3 to 15 candles to outrun Theta decay. The 31.7% win rate is mathematically offset by massive capped asymmetric upside (up to +500% premium spikes).
+        **Strategy Logic (Obfuscated):** Filters out 95% of market noise to isolate institutional momentum. Uses 5 setup variants including **VWAP Breakouts**, **Volume Surges (>3x avg)**, and **Hidden RSI Divergences**. Employs fixed holding periods of 3 to 15 candles to outrun Theta decay. The 31.7% win rate is mathematically offset by massive capped asymmetric upside (up to +500% premium spikes).
         """)
         
     with tab3:
@@ -195,8 +192,7 @@ if nav_selection == "1. INDIAN MARKET (Equities & Options)":
         with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">1.005</div><div class="metric-label">Profit Factor (Unleveraged)</div></div>', unsafe_allow_html=True)
         
         st.markdown("""
-        **Strategy Logic (Obfuscated):** 
-        Retail loses on straddles due to linear Theta decay. This engine only enters straddles on **Macro Volume Spikes (>1.7x)** during extreme consolidation. The analysis reveals a distinct **BTST (Buy Today, Sell Tomorrow) dominance** over morning execution, exploiting overnight gap risk in high-beta counters like ADANIENSOL and SHRIRAMFIN.
+        **Strategy Logic (Obfuscated):** Retail loses on straddles due to linear Theta decay. This engine only enters straddles on **Macro Volume Spikes (>1.7x)** during extreme consolidation. The analysis reveals a distinct **BTST (Buy Today, Sell Tomorrow) dominance** over morning execution, exploiting overnight gap risk in high-beta counters like ADANIENSOL and SHRIRAMFIN.
         """)
 
     with tab4:
@@ -256,65 +252,3 @@ elif nav_selection == "2. CRYPTO CURRENCY (Stat-Arb)":
 <span class="t-green">✅ Maker Orders Filled. Market Neutral Status Achieved.</span>
         """
         st.markdown(f'<div class="terminal-console">{titan_log}</div>', unsafe_allow_html=True)
-
-# ==============================================================================
-# 🔴 MODULE 3: FOREX (XAUUSD PROP FIRM)
-# ==============================================================================
-elif nav_selection == "3. FOREX (XAUUSD Prop Firm)":
-    st.markdown('<p class="title-gradient">Apex Compounder & Gold Miner Pro (XAUUSD)</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">Prop-Firm Asymmetric Runner | MT5 Integration Architecture</p>', unsafe_allow_html=True)
-    
-    st.info("📊 **Quantum of Data Analyzed:** Simulated chronological stress testing over 1 to 2 years of MT5 historical H1 (Hourly) data. Over **8,760 hourly data points processed annually**, testing across normal and high-impact macroeconomic event volatility.", icon="📈")
-
-    tab1, tab2, tab3 = st.tabs(["Z-Score Sniper V6", "Apex Compounder V10", "XM Bonus Incubator"])
-
-    with tab1:
-        st.markdown("### Funded Scaler: Institutional Z-Score Setup")
-        c1, c2, c3 = st.columns(3)
-        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">+21.90%</div><div class="metric-label">1-Yr Total Net ROI</div></div>', unsafe_allow_html=True)
-        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">3.59%</div><div class="metric-label">Maximum Drawdown</div></div>', unsafe_allow_html=True)
-        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">100%</div><div class="metric-label">Prop Firm Pass Prob.</div></div>', unsafe_allow_html=True)
-        
-        st.markdown("""
-        **Strategy Logic (Obfuscated):**
-        Utilizes a Macro Trend Filter (e.g., EMA200) to establish directional bias. Enters on extreme oversold/overbought dips using H1 Z-Scores during the NY Power Hours (13:00–18:00 UTC). Risk is kept defensively low at 0.5% per trade. Employs a dynamic ATR-based SL/TP mechanism with instant breakeven trailing.
-        """)
-
-    with tab2:
-        st.markdown("### Apex Compounder V10 (High Risk/Kamikaze Engine)")
-        c1, c2, c3 = st.columns(3)
-        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-green">+372.93%</div><div class="metric-label">Aggressive ROI</div></div>', unsafe_allow_html=True)
-        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-red">23.88%</div><div class="metric-label">Maximum Drawdown</div></div>', unsafe_allow_html=True)
-        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-gold">4.73x</div><div class="metric-label">Capital Multiple</div></div>', unsafe_allow_html=True)
-        
-        st.markdown("""
-        **Strategy Logic (Obfuscated):**
-        The exact same robust mathematical entry parameters as V6, but re-engineered for personal capital scaling rather than Prop Firm limits. Risks 5% per trade. Generates massive returns by utilizing an **Asymmetric Scaling Engine**: Secures 50% at TP1 to neutralize risk, and trails the remaining lot with loose ATR bounds to catch violent macro gold runs.
-        """)
-
-    with tab3:
-        st.markdown("### The XM Bonus Incubator (Micro-Capital Scaling)")
-        c1, c2, c3 = st.columns(3)
-        with c1: st.markdown('<div class="glass-card"><div class="metric-value metric-blue">559.4%</div><div class="metric-label">Return on Deposit</div></div>', unsafe_allow_html=True)
-        with c2: st.markdown('<div class="glass-card"><div class="metric-value metric-green">$3,297.14</div><div class="metric-label">Final Real Cash</div></div>', unsafe_allow_html=True)
-        with c3: st.markdown('<div class="glass-card"><div class="metric-value metric-white">51</div><div class="metric-label">Total Trades</div></div>', unsafe_allow_html=True)
-        
-        st.markdown("""
-        **Objective:** To systematically convert non-withdrawable broker bonus credit into real withdrawable cash.
-        **Backtest Results:** Started with $500 Real Cash + $250 Credit. Over the simulated curve, the engine withstood a max drawdown of 23.88% (absorbing the hit into the credit buffer) and geometrically compounded the base capital out to over $3,200 of liquid capital.
-        """)
-
-    if requires_auth():
-        apex_log = """
-<span class="t-white">🚀 INITIALIZING XAUUSD APEX ENGINE (MT5 BRIDGE)...</span>
-<span class="t-green">✅ MT5 Connected | Target: XAUUSD | Base: $25,000.00</span>
-<span class="t-white">---------------------------------------------------------</span>
-<span class="t-green">⚡ PROP SIGNAL GENERATED | Structure: [MASKED] </span>
-<span class="t-cyan">🔥 EXECUTION: LONG XAUUSD | SL: Algorithmic Low</span>
-<span class="t-green">💰 T1 BREACHED! Securing 50% lot size.</span>
-<span class="t-cyan">📈 SYSTEM ACTION: SL modified to Breakeven. Risk profile = 0.00%</span>
-<span class="t-cyan">📈 Trailing SL Moved UP (Locking structural profit)</span>
-<span class="t-red">🛑 DYNAMIC TRAILING SL TRIGGERED | Position Cleared</span>
-<span class="t-cyan">✅ Trade Concluded. Asymmetric Reward Profile Successfully Achieved.</span>
-        """
-        st.markdown(f'<div class="terminal-console">{apex_log}</div>', unsafe_allow_html=True)
